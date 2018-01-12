@@ -6,8 +6,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      sideLength: 12,
-      dataModel: this.randomWorld(12),
+      sideLength: 20,
+      dataModel: this.randomWorld(20),
     };
   }
 
@@ -74,8 +74,8 @@ const Cell = ({ cell }) => {
     <td
       style={{
         background: color(cell),
-        width: '50px',
-        height: '50px',
+        width: '30px',
+        height: '30px',
         border: '1px solid gray',
       }}
     />
