@@ -61,7 +61,7 @@ const Row = ({ row, joinRow }) => {
 };
 
 const Cell = ({ cell }) => {
-  const color = binary => (binary === 1 ? 'green' : 'white');
+  const color = binary => (binary === 1 ? 'purple' : 'white');
 
   return (
     <td
