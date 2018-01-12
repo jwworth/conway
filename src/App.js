@@ -1,21 +1,69 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      dataModel: [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+      sideLength: 4,
+    };
+  }
+
+  chunk = (arr, chunkSize) => {
+    let groups = [], i;
+    for (i = 0; i < arr.length; i += chunkSize) {
+      groups.push(arr.slice(i, i + chunkSize));
+    }
+    return groups;
+  };
+
+  joinRow = row => row.join('');
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <table>
+          <tbody>
+            {this.chunk(
+              this.state.dataModel,
+              this.state.sideLength
+            ).map((row, i) => (
+              <Row
+                row={row}
+                key={i + this.joinRow(row)}
+                joinRow={this.joinRow}
+              />
+            ))}
+          </tbody>
+        </table>
       </div>
     );
   }
 }
+
+const Row = ({ row, joinRow }) => {
+  return (
+    <tr>
+      {row.map((cell, i) => <Cell cell={cell} key={joinRow(row) + cell + i} />)}
+    </tr>
+  );
+};
+
+const Cell = ({ cell }) => {
+  const color = binary => (binary === 1 ? 'green' : 'white');
+
+  return (
+    <td
+      style={{
+        background: color(cell),
+        width: '50px',
+        height: '50px',
+        border: '1px solid gray',
+      }}
+    />
+  );
+};
 
 export default App;
