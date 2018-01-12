@@ -20,6 +20,12 @@ class App extends Component {
     return world;
   };
 
+  randomizeWorld = () => {
+    this.setState({
+      dataModel: this.randomWorld(this.state.sideLength),
+    });
+  };
+
   chunk = (arr, chunkSize) => {
     let groups = [], i;
     for (i = 0; i < arr.length; i += chunkSize) {
@@ -33,6 +39,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <button onClick={() => this.randomizeWorld()}>Reset World</button>
         <table>
           <tbody>
             {this.chunk(
