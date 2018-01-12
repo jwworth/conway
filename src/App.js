@@ -6,10 +6,19 @@ class App extends Component {
     super(props);
 
     this.state = {
-      dataModel: [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
-      sideLength: 4,
+      sideLength: 12,
+      dataModel: this.randomWorld(12),
     };
   }
+
+  randomWorld = sideLength => {
+    let world = [];
+    for (var i = 0; i < sideLength ** 2; i++) {
+      const sentience = Math.random() < 0.07 ? 1 : 0;
+      world.push(sentience);
+    }
+    return world;
+  };
 
   chunk = (arr, chunkSize) => {
     let groups = [], i;
