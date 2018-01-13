@@ -20,7 +20,7 @@ class App extends Component {
       row.map((cell, cellIndex) => {
         if (cell === 1) {
           const score = this.neighborScore(rowIndex, cellIndex);
-          if (score < 2) {
+          if (score < 2 || score > 3) {
             return 0;
           } else if (score === 2 || score === 3) {
             return 1;
