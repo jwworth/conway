@@ -101,24 +101,22 @@ class App extends Component {
         <button onClick={() => this.randomizeWorld()}>Reset World</button>
         <table>
           <tbody>
-            {this.state.dataModel.map((row, i) => (
-              <Row
-                row={row}
-                key={this.joinRow(row) + i}
-                joinRow={this.joinRow}
-              />
-            ))}
+            {this.state.dataModel.map((row, i) => {
+              const rowKey = this.joinRow;
+              return <Row row={row} key={i + rowKey} rowKey={rowKey} />;
+            })}
           </tbody>
         </table>
+        r
       </div>
     );
   }
 }
 
-const Row = ({ row, joinRow }) => {
+const Row = ({ row, rowKey }) => {
   return (
     <tr>
-      {row.map((cell, i) => <Cell cell={cell} key={joinRow(row) + cell + i} />)}
+      {row.map((cell, i) => <Cell cell={cell} key={rowKey + cell + i} />)}
     </tr>
   );
 };
