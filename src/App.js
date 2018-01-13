@@ -22,7 +22,7 @@ class App extends Component {
           const score = this.neighborScore(rowIndex, cellIndex);
           if (score < 2) {
             return 0;
-          } else {
+          } else if (score === 2 || score === 3) {
             return 1;
           }
         }
@@ -107,7 +107,6 @@ class App extends Component {
             })}
           </tbody>
         </table>
-        r
       </div>
     );
   }
