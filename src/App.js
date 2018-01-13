@@ -19,19 +19,13 @@ class App extends Component {
     const world = this.state.world.map((row, rowIndex) =>
       row.map((cell, cellIndex) => {
         const score = this.neighborScore(rowIndex, cellIndex);
-        if (cell === 1) {
-          if (score < 2 || score > 3) {
-            return 0;
-          } else if (score === 2 || score === 3) {
-            return 1;
-          }
-        } else if (cell === 0) {
-          if (score === 3) {
-            return 1;
-          } else {
-            return 0;
-          }
+        let status;
+        if (cell === 1 && (score === 2 || score === 3)) {
+          status = 1;
+        } else if (cell === 0 && score === 3) {
+          status = 1;
         }
+        return status || 0;
       })
     );
 
