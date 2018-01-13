@@ -99,7 +99,7 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{ margin: 'auto', width: '900px' }}>
+      <div>
         <button onClick={() => this.randomizeWorld()}>Reset World</button>
         <table>
           <tbody>
