@@ -12,18 +12,24 @@ class App extends Component {
   }
 
   componentDidMount() {
-    setInterval(this.advanceState, 2000);
+    setInterval(this.advanceState, 20);
   }
 
   advanceState = () => {
     const dataModel = this.state.dataModel.map((row, rowIndex) =>
       row.map((cell, cellIndex) => {
+        const score = this.neighborScore(rowIndex, cellIndex);
         if (cell === 1) {
-          const score = this.neighborScore(rowIndex, cellIndex);
           if (score < 2 || score > 3) {
             return 0;
           } else if (score === 2 || score === 3) {
             return 1;
+          }
+        } else if (cell === 0) {
+          if (score === 3) {
+            return 1;
+          } else {
+            return 0;
           }
         }
       })
@@ -73,7 +79,7 @@ class App extends Component {
   randomWorld = sideLength => {
     let world = [];
     for (var i = 0; i < sideLength ** 2; i++) {
-      const sentience = Math.random() < 0.1 ? 1 : 0;
+      const sentience = Math.random() < 0.2 ? 1 : 0;
       world.push(sentience);
     }
     return this.chunk(world, 20);
