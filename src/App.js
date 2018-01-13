@@ -6,8 +6,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      sideLength: 20,
-      world: this.randomWorld(20),
+      sideLength: 30,
+      world: this.randomWorld(30),
     };
   }
 
@@ -80,7 +80,7 @@ class App extends Component {
       const sentience = Math.random() < 0.2 ? 1 : 0;
       world.push(sentience);
     }
-    return this.chunk(world, 20);
+    return this.chunk(world, sideLength);
   };
 
   randomizeWorld = () => {
@@ -129,8 +129,8 @@ const Cell = ({ cell }) => {
     <td
       style={{
         background: color(cell),
-        width: '30px',
-        height: '30px',
+        width: '20px',
+        height: '20px',
         border: '1px solid lightgray',
       }}
     />
