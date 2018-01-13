@@ -7,7 +7,7 @@ class App extends Component {
 
     this.state = {
       sideLength: 20,
-      dataModel: this.randomWorld(20),
+      world: this.randomWorld(20),
     };
   }
 
@@ -16,7 +16,7 @@ class App extends Component {
   }
 
   advanceState = () => {
-    const dataModel = this.state.dataModel.map((row, rowIndex) =>
+    const world = this.state.world.map((row, rowIndex) =>
       row.map((cell, cellIndex) => {
         const score = this.neighborScore(rowIndex, cellIndex);
         if (cell === 1) {
@@ -35,7 +35,7 @@ class App extends Component {
       })
     );
 
-    this.setState({ dataModel });
+    this.setState({ world });
   };
 
   neighborScore = (rowIndex, cellIndex) => {
@@ -62,8 +62,8 @@ class App extends Component {
     const score = positions
       .map(position => {
         let count;
-        if (this.state.dataModel[position[0]]) {
-          count = this.state.dataModel[position[0]][position[1]] || 0;
+        if (this.state.world[position[0]]) {
+          count = this.state.world[position[0]][position[1]] || 0;
         } else {
           count = 0;
         }
@@ -85,7 +85,7 @@ class App extends Component {
 
   randomizeWorld = () => {
     this.setState({
-      dataModel: this.randomWorld(this.state.sideLength),
+      world: this.randomWorld(this.state.sideLength),
     });
   };
 
@@ -103,7 +103,7 @@ class App extends Component {
         <button onClick={() => this.randomizeWorld()}>Reset World</button>
         <table>
           <tbody>
-            {this.state.dataModel.map((row, i) => {
+            {this.state.world.map((row, i) => {
               const rowKey = row.join('');
               return <Row row={row} key={i + rowKey} rowKey={rowKey} />;
             })}
