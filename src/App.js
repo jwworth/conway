@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 
 class App extends Component {
   constructor(props) {
@@ -12,7 +11,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    setInterval(this.advanceState, 20);
+    setInterval(this.advanceState, 30);
   }
 
   advanceState = () => {
@@ -41,11 +40,9 @@ class App extends Component {
   neighborScore = (rowIndex, cellIndex) => {
     const rightNeighbor = [rowIndex, cellIndex + 1];
     const leftNeighbor = [rowIndex, cellIndex - 1];
-
     const topNeighbor = [rowIndex - 1, cellIndex];
     const topLeftNeighbor = [rowIndex - 1, cellIndex - 1];
     const topRightNeighbor = [rowIndex - 1, cellIndex + 1];
-
     const bottomNeighbor = [rowIndex + 1, cellIndex];
     const bottomLeftNeighbor = [rowIndex + 1, cellIndex - 1];
     const bottomRightNeighbor = [rowIndex + 1, cellIndex + 1];
@@ -99,16 +96,14 @@ class App extends Component {
     return groups;
   };
 
-  joinRow = row => row.join('');
-
   render() {
     return (
-      <div className="App">
+      <div>
         <button onClick={() => this.randomizeWorld()}>Reset World</button>
         <table>
           <tbody>
             {this.state.dataModel.map((row, i) => {
-              const rowKey = this.joinRow;
+              const rowKey = row.join('');
               return <Row row={row} key={i + rowKey} rowKey={rowKey} />;
             })}
           </tbody>
@@ -127,7 +122,7 @@ const Row = ({ row, rowKey }) => {
 };
 
 const Cell = ({ cell }) => {
-  const color = binary => (binary === 1 ? 'purple' : 'white');
+  const color = binary => (binary === 1 ? '#654EA3' : '#fff');
 
   return (
     <td
