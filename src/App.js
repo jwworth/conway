@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './normalize.css';
 
 class App extends Component {
   constructor(props) {
@@ -98,7 +99,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ margin: 'auto', width: '900px' }}>
         <button onClick={() => this.randomizeWorld()}>Reset World</button>
         <table>
           <tbody>
@@ -130,7 +131,7 @@ const Cell = ({ cell }) => {
         background: color(cell),
         width: '30px',
         height: '30px',
-        border: '1px solid gray',
+        border: '1px solid lightgray',
       }}
     />
   );
