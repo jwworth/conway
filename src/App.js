@@ -6,34 +6,77 @@ class App extends Component {
     super(props);
 
     this.state = {
-      sideLength: 5,
-      dataModel: this.randomWorld(5),
+      sideLength: 20,
+      dataModel: this.randomWorld(20),
     };
   }
 
   componentDidMount() {
-    setInterval(this.tick, 1000);
+    setInterval(this.advanceState, 2000);
   }
 
-  tick = () => {
-    this.advanceState();
-  };
-
   advanceState = () => {
-    const dataModel = this.state.dataModel.map((cell, i) => {
-      return 0;
-    });
+    const dataModel = this.state.dataModel.map((row, rowIndex) =>
+      row.map((cell, cellIndex) => {
+        if (cell === 1) {
+          const score = this.neighborScore(rowIndex, cellIndex);
+          if (score < 2) {
+            return 0;
+          } else {
+            return 1;
+          }
+        }
+      })
+    );
 
     this.setState({ dataModel });
+  };
+
+  neighborScore = (rowIndex, cellIndex) => {
+    const rightNeighbor = [rowIndex, cellIndex + 1];
+    const leftNeighbor = [rowIndex, cellIndex - 1];
+
+    const topNeighbor = [rowIndex - 1, cellIndex];
+    const topLeftNeighbor = [rowIndex - 1, cellIndex - 1];
+    const topRightNeighbor = [rowIndex - 1, cellIndex + 1];
+
+    const bottomNeighbor = [rowIndex + 1, cellIndex];
+    const bottomLeftNeighbor = [rowIndex + 1, cellIndex - 1];
+    const bottomRightNeighbor = [rowIndex + 1, cellIndex + 1];
+
+    const positions = [
+      rightNeighbor,
+      leftNeighbor,
+      topNeighbor,
+      topLeftNeighbor,
+      topRightNeighbor,
+      bottomNeighbor,
+      bottomLeftNeighbor,
+      bottomRightNeighbor,
+    ];
+
+    const score = positions
+      .map(position => {
+        let count;
+        if (this.state.dataModel[position[0]]) {
+          count = this.state.dataModel[position[0]][position[1]] || 0;
+        } else {
+          count = 0;
+        }
+
+        return count;
+      })
+      .reduce((a, b) => a + b, 0);
+    return score;
   };
 
   randomWorld = sideLength => {
     let world = [];
     for (var i = 0; i < sideLength ** 2; i++) {
-      const sentience = Math.random() < 0.07 ? 1 : 0;
+      const sentience = Math.random() < 0.1 ? 1 : 0;
       world.push(sentience);
     }
-    return world;
+    return this.chunk(world, 20);
   };
 
   randomizeWorld = () => {
@@ -58,13 +101,10 @@ class App extends Component {
         <button onClick={() => this.randomizeWorld()}>Reset World</button>
         <table>
           <tbody>
-            {this.chunk(
-              this.state.dataModel,
-              this.state.sideLength
-            ).map((row, i) => (
+            {this.state.dataModel.map((row, i) => (
               <Row
                 row={row}
-                key={i + this.joinRow(row)}
+                key={this.joinRow(row) + i}
                 joinRow={this.joinRow}
               />
             ))}
