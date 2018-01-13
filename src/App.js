@@ -6,10 +6,26 @@ class App extends Component {
     super(props);
 
     this.state = {
-      sideLength: 20,
-      dataModel: this.randomWorld(20),
+      sideLength: 5,
+      dataModel: this.randomWorld(5),
     };
   }
+
+  componentDidMount() {
+    setInterval(this.tick, 1000);
+  }
+
+  tick = () => {
+    this.advanceState();
+  };
+
+  advanceState = () => {
+    const dataModel = this.state.dataModel.map((cell, i) => {
+      return 0;
+    });
+
+    this.setState({ dataModel });
+  };
 
   randomWorld = sideLength => {
     let world = [];
