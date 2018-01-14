@@ -6,7 +6,7 @@ class App extends Component {
     super(props);
 
     const randomness = 0.2;
-    const sideLength = 30;
+    const sideLength = 35;
 
     this.state = {
       randomness,
@@ -120,7 +120,30 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ margin: 'auto', width: '525px' }}>
+        <table>
+          <tbody>
+            {this.state.world.map((row, i) => {
+              const rowKey = row.join('');
+              return <Row row={row} key={i + rowKey} rowKey={rowKey} />;
+            })}
+          </tbody>
+        </table>
+        <p><strong>Days:</strong> {this.state.days}</p>
+        <p>
+          <label htmlFor={'randomnessSlider'}>
+            Chance of life: {this.state.randomness}
+          </label>
+          <input
+            type="range"
+            id="randomnessSlider"
+            min="0"
+            max="1"
+            value={this.state.randomness}
+            step="0.1"
+            onChange={e => this.updateRandomness(e.target.value)}
+          />
+        </p>
         <button onClick={() => this.resetWorld()}>
           Reset World
         </button>
@@ -130,27 +153,6 @@ class App extends Component {
         <button disabled={!this.state.timer} onClick={() => this.stop()}>
           Stop
         </button>
-        <label htmlFor={'randomnessSlider'}>
-          Chance of life: {this.state.randomness}
-        </label>
-        <input
-          type="range"
-          id="randomnessSlider"
-          min="0"
-          max="1"
-          value={this.state.randomness}
-          step="0.1"
-          onChange={e => this.updateRandomness(e.target.value)}
-        />
-        <table>
-          <tbody>
-            {this.state.world.map((row, i) => {
-              const rowKey = row.join('');
-              return <Row row={row} key={i + rowKey} rowKey={rowKey} />;
-            })}
-          </tbody>
-        </table>
-        Days: {this.state.days}
       </div>
     );
   }
@@ -171,8 +173,8 @@ const Cell = ({ cell }) => {
     <td
       style={{
         background: color(cell),
-        width: '20px',
-        height: '20px',
+        width: '15px',
+        height: '15px',
         border: '1px solid lightgray',
       }}
     />
