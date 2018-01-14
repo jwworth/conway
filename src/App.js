@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './normalize.css';
+import './App.css';
 
 class App extends Component {
   constructor(props) {
@@ -132,7 +133,7 @@ class App extends Component {
         <p><strong>Days:</strong> {this.state.days}</p>
         <p>
           <label htmlFor={'randomnessSlider'}>
-            Chance of life: {this.state.randomness}
+            <strong>Chance of life:</strong> {this.state.randomness}
           </label>
           <input
             type="range"
