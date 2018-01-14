@@ -119,9 +119,9 @@ class App extends Component {
         <button disabled={!this.state.timer} onClick={() => this.stop()}>
           Stop
         </button>
-        Randomness:
-        {' '}
-        {this.state.randomness}
+        <label htmlFor={'randomnessSlider'}>
+          Chance of life: {this.state.randomness}
+        </label>
         <input
           type="range"
           id="randomnessSlider"
