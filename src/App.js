@@ -6,12 +6,13 @@ class App extends Component {
     super(props);
 
     const randomness = 0.2;
+    const sideLength = 30;
 
     this.state = {
       randomness,
-      sideLength: 30,
+      sideLength,
       timer: null,
-      world: this.randomWorld(30, randomness),
+      world: this.randomWorld(sideLength, randomness),
     };
   }
 
@@ -87,15 +88,15 @@ class App extends Component {
     return this.chunk(world, sideLength);
   };
 
-  randomizeWorld = () => {
+  randomizeWorld = randomness => {
     this.setState({
-      world: this.randomWorld(this.state.sideLength, this.state.randomness),
+      world: this.randomWorld(this.state.sideLength, randomness),
     });
   };
 
   updateRandomness = randomness => {
     this.setState({ randomness });
-    this.randomizeWorld();
+    this.randomizeWorld(randomness);
   };
 
   chunk = (arr, chunkSize) => {
@@ -109,7 +110,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <button onClick={() => this.randomizeWorld()}>Reset World</button>
+        <button onClick={() => this.randomizeWorld(this.state.randomness)}>
+          Reset World
+        </button>
         <button disabled={this.state.timer} onClick={() => this.start()}>
           Start
         </button>
