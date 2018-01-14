@@ -5,15 +5,25 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    const randomness = 0.2;
+
     this.state = {
+      randomness,
       sideLength: 30,
-      world: this.randomWorld(30),
+      timer: null,
+      world: this.randomWorld(30, randomness),
     };
   }
 
-  componentDidMount() {
-    setInterval(this.advanceState, 30);
-  }
+  start = () => {
+    const timer = setInterval(this.advanceState, 30);
+    this.setState({ timer });
+  };
+
+  stop = () => {
+    clearInterval(this.state.timer);
+    this.setState({ timer: null });
+  };
 
   advanceState = () => {
     const world = this.state.world.map((row, rowIndex) =>
@@ -68,10 +78,10 @@ class App extends Component {
     return score;
   };
 
-  randomWorld = sideLength => {
+  randomWorld = (sideLength, randomness) => {
     let world = [];
     for (var i = 0; i < sideLength ** 2; i++) {
-      const sentience = Math.random() < 0.2 ? 1 : 0;
+      const sentience = Math.random() < randomness ? 1 : 0;
       world.push(sentience);
     }
     return this.chunk(world, sideLength);
@@ -79,8 +89,13 @@ class App extends Component {
 
   randomizeWorld = () => {
     this.setState({
-      world: this.randomWorld(this.state.sideLength),
+      world: this.randomWorld(this.state.sideLength, this.state.randomness),
     });
+  };
+
+  updateRandomness = randomness => {
+    this.setState({ randomness });
+    this.randomizeWorld();
   };
 
   chunk = (arr, chunkSize) => {
@@ -95,6 +110,24 @@ class App extends Component {
     return (
       <div>
         <button onClick={() => this.randomizeWorld()}>Reset World</button>
+        <button disabled={this.state.timer} onClick={() => this.start()}>
+          Start
+        </button>
+        <button disabled={!this.state.timer} onClick={() => this.stop()}>
+          Stop
+        </button>
+        Randomness:
+        {' '}
+        {this.state.randomness}
+        <input
+          type="range"
+          id="randomnessSlider"
+          min="0"
+          max="1"
+          value={this.state.randomness}
+          step="0.1"
+          onChange={e => this.updateRandomness(e.target.value)}
+        />
         <table>
           <tbody>
             {this.state.world.map((row, i) => {
