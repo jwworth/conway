@@ -12,6 +12,7 @@ class App extends Component {
       randomness,
       sideLength,
       timer: null,
+      days: 0,
       world: this.randomWorld(sideLength, randomness),
     };
   }
@@ -24,6 +25,11 @@ class App extends Component {
   stop = () => {
     clearInterval(this.state.timer);
     this.setState({ timer: null });
+  };
+
+  resetWorld = () => {
+    this.setState({ days: 0 });
+    this.randomizeWorld(this.state.randomness);
   };
 
   advanceState = () => {
@@ -40,7 +46,12 @@ class App extends Component {
       })
     );
 
-    this.setState({ world });
+    if (JSON.stringify(world) === JSON.stringify(this.state.world)) {
+      this.stop();
+    } else {
+      let days = this.state.days;
+      this.setState({ world, days: days + 1 });
+    }
   };
 
   neighborScore = (rowIndex, cellIndex) => {
@@ -110,7 +121,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <button onClick={() => this.randomizeWorld(this.state.randomness)}>
+        <button onClick={() => this.resetWorld()}>
           Reset World
         </button>
         <button disabled={this.state.timer} onClick={() => this.start()}>
@@ -139,6 +150,7 @@ class App extends Component {
             })}
           </tbody>
         </table>
+        Days: {this.state.days}
       </div>
     );
   }
