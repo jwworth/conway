@@ -15,12 +15,13 @@ class App extends Component {
       timer: null,
       gameInPlay: false,
       days: 0,
+      speed: 30,
       world: this.randomWorld(sideLength, randomness),
     };
   }
 
   start = () => {
-    const timer = setInterval(this.advanceState, 30);
+    const timer = setInterval(this.advanceState, this.state.speed);
     this.setState({ timer, gameInPlay: true });
   };
 
@@ -112,6 +113,10 @@ class App extends Component {
     this.randomizeWorld(randomness);
   };
 
+  updateSpeed = speed => {
+    this.setState({ speed, days: 0 });
+  };
+
   chunk = (arr, chunkSize) => {
     let groups = [], i;
     for (i = 0; i < arr.length; i += chunkSize) {
@@ -121,7 +126,7 @@ class App extends Component {
   };
 
   render() {
-    const { world, gameInPlay, days, randomness, timer } = this.state;
+    const { world, gameInPlay, days, randomness, timer, speed } = this.state;
     return (
       <div style={{ margin: 'auto', width: '450px' }}>
         <h1>Game of Life</h1>
@@ -147,6 +152,19 @@ class App extends Component {
             value={randomness}
             step="0.1"
             onChange={e => this.updateRandomness(e.target.value)}
+          />
+          <label htmlFor={'speedSlider'}>
+            <strong>Speed:</strong> {speed}ms
+          </label>
+          <input
+            disabled={gameInPlay}
+            type="range"
+            id="speedSlider"
+            min="10"
+            max="3000"
+            value={speed}
+            step="10"
+            onChange={e => this.updateSpeed(e.target.value)}
           />
         </p>
         <button onClick={() => this.resetWorld()}>
