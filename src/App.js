@@ -121,29 +121,30 @@ class App extends Component {
   };
 
   render() {
+    const { world, gameInPlay, days, randomness, timer } = this.state;
     return (
       <div style={{ margin: 'auto', width: '450px' }}>
         <h1>Game of Life</h1>
         <table>
           <tbody>
-            {this.state.world.map((row, i) => {
+            {world.map((row, i) => {
               const rowKey = row.join('');
               return <Row row={row} key={i + rowKey} rowKey={rowKey} />;
             })}
           </tbody>
         </table>
-        <p><strong>Days:</strong> {this.state.days}</p>
+        <p><strong>Days:</strong> {days}</p>
         <p>
           <label htmlFor={'randomnessSlider'}>
-            <strong>Chance of life:</strong> {this.state.randomness}
+            <strong>Chance of life:</strong> {randomness}
           </label>
           <input
-            disabled={this.state.gameInPlay}
+            disabled={gameInPlay}
             type="range"
             id="randomnessSlider"
             min="0"
             max="1"
-            value={this.state.randomness}
+            value={randomness}
             step="0.1"
             onChange={e => this.updateRandomness(e.target.value)}
           />
@@ -151,10 +152,10 @@ class App extends Component {
         <button onClick={() => this.resetWorld()}>
           Reset World
         </button>
-        <button disabled={this.state.timer} onClick={() => this.start()}>
+        <button disabled={timer} onClick={() => this.start()}>
           Start
         </button>
-        <button disabled={!this.state.timer} onClick={() => this.stop()}>
+        <button disabled={!timer} onClick={() => this.stop()}>
           Stop
         </button>
       </div>
