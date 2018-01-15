@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { chunk } from 'lodash';
 import './normalize.css';
 import './App.css';
 
@@ -31,8 +32,10 @@ class App extends Component {
   };
 
   resetWorld = () => {
-    this.setState({ days: 0 });
-    this.randomizeWorld(this.state.randomness);
+    this.setState({
+      world: this.randomWorld(this.state.sideLength, this.state.randomness),
+      days: 0,
+    });
   };
 
   advanceState = () => {
@@ -99,34 +102,40 @@ class App extends Component {
       const sentience = Math.random() < randomness ? 1 : 0;
       world.push(sentience);
     }
-    return this.chunk(world, sideLength);
-  };
-
-  randomizeWorld = randomness => {
-    this.setState({
-      world: this.randomWorld(this.state.sideLength, randomness),
-    });
+    return chunk(world, sideLength);
   };
 
   updateRandomness = randomness => {
-    this.setState({ randomness, days: 0 });
-    this.randomizeWorld(randomness);
+    this.setState({
+      world: this.randomWorld(this.state.sideLength, randomness),
+      randomness,
+      days: 0,
+    });
   };
 
   updateSpeed = speed => {
-    this.setState({ speed, days: 0 });
+    clearInterval(this.state.timer);
+    this.setState({ timer: null, speed });
   };
 
-  chunk = (arr, chunkSize) => {
-    let groups = [], i;
-    for (i = 0; i < arr.length; i += chunkSize) {
-      groups.push(arr.slice(i, i + chunkSize));
-    }
-    return groups;
+  updateSideLength = sideLength => {
+    this.setState({
+      world: this.randomWorld(sideLength, this.state.randomness),
+      sideLength,
+      days: 0,
+    });
   };
 
   render() {
-    const { world, gameInPlay, days, randomness, timer, speed } = this.state;
+    const {
+      world,
+      gameInPlay,
+      days,
+      randomness,
+      timer,
+      speed,
+      sideLength,
+    } = this.state;
     return (
       <div style={{ margin: 'auto', width: '450px' }}>
         <h1>Game of Life</h1>
@@ -165,6 +174,19 @@ class App extends Component {
             value={speed}
             step="10"
             onChange={e => this.updateSpeed(e.target.value)}
+          />
+          <label htmlFor={'dimensionsSlider'}>
+            <strong>Side length:</strong> {sideLength}
+          </label>
+          <input
+            disabled={gameInPlay}
+            type="range"
+            id="dimensionsSlider"
+            min="10"
+            max="30"
+            value={sideLength}
+            step="1"
+            onChange={e => this.updateSideLength(e.target.value)}
           />
         </p>
         <button disabled={timer} onClick={() => this.start()}>
