@@ -158,6 +158,7 @@ class App extends Component {
         <button disabled={!timer} onClick={() => this.stop()}>
           Stop
         </button>
+        <Footer />
       </div>
     );
   }
@@ -183,6 +184,16 @@ const Cell = ({ cell }) => {
         border: '1px solid lightgray',
       }}
     />
+  );
+};
+
+const Footer = () => {
+  return (
+    <div style={{ paddingTop: '20px' }}>
+      <a href="http://github.com/jwworth/conway" style={{ color: '#000' }}>
+        Source code
+      </a>
+    </div>
   );
 };
 
