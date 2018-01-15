@@ -108,7 +108,7 @@ class App extends Component {
   };
 
   updateRandomness = randomness => {
-    this.setState({ randomness });
+    this.setState({ randomness, days: 0 });
     this.randomizeWorld(randomness);
   };
 
