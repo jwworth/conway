@@ -13,6 +13,7 @@ class App extends Component {
       randomness,
       sideLength,
       timer: null,
+      gameInPlay: false,
       days: 0,
       world: this.randomWorld(sideLength, randomness),
     };
@@ -20,12 +21,12 @@ class App extends Component {
 
   start = () => {
     const timer = setInterval(this.advanceState, 30);
-    this.setState({ timer });
+    this.setState({ timer, gameInPlay: true });
   };
 
   stop = () => {
     clearInterval(this.state.timer);
-    this.setState({ timer: null });
+    this.setState({ timer: null, gameInPlay: false });
   };
 
   resetWorld = () => {
@@ -137,6 +138,7 @@ class App extends Component {
             <strong>Chance of life:</strong> {this.state.randomness}
           </label>
           <input
+            disabled={this.state.gameInPlay}
             type="range"
             id="randomnessSlider"
             min="0"
