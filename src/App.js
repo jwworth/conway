@@ -32,6 +32,7 @@ class App extends Component {
   };
 
   resetWorld = () => {
+    this.stop();
     this.setState({
       world: this.randomWorld(this.state.sideLength, this.state.randomness),
       days: 0,
