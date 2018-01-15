@@ -7,7 +7,7 @@ class App extends Component {
     super(props);
 
     const randomness = 0.2;
-    const sideLength = 35;
+    const sideLength = 30;
 
     this.state = {
       randomness,
@@ -121,7 +121,8 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{ margin: 'auto', width: '525px' }}>
+      <div style={{ margin: 'auto', width: '450px' }}>
+        <h1>Game of Life</h1>
         <table>
           <tbody>
             {this.state.world.map((row, i) => {
