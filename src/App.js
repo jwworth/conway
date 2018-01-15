@@ -167,14 +167,14 @@ class App extends Component {
             onChange={e => this.updateSpeed(e.target.value)}
           />
         </p>
-        <button onClick={() => this.resetWorld()}>
-          Reset World
-        </button>
         <button disabled={timer} onClick={() => this.start()}>
           Start
         </button>
         <button disabled={!timer} onClick={() => this.stop()}>
           Stop
+        </button>
+        <button onClick={() => this.resetWorld()}>
+          Reset World
         </button>
         <Footer />
       </div>
