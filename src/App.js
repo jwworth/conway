@@ -169,7 +169,7 @@ const Row = ({ row, rowKey }) => {
 };
 
 const Cell = ({ cell }) => {
-  const color = binary => (binary === 1 ? '#654EA3' : '#fff');
+  const color = binary => (binary === 1 ? '#029874' : '#fff');
 
   return (
     <td
