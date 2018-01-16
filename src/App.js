@@ -33,9 +33,8 @@ class App extends Component {
 
   resetWorld = () => {
     this.stop();
-    this.setState({
-      world: this.randomWorld(this.state.sideLength, this.state.randomness),
-      days: 0,
+    this.setState(({ sideLength, randomness }) => {
+      return { world: this.randomWorld(sideLength, randomness), days: 0 };
     });
   };
 
@@ -107,10 +106,12 @@ class App extends Component {
   };
 
   updateRandomness = randomness => {
-    this.setState({
-      world: this.randomWorld(this.state.sideLength, randomness),
-      randomness,
-      days: 0,
+    this.setState(({ sideLength }) => {
+      return {
+        world: this.randomWorld(sideLength, randomness),
+        randomness,
+        days: 0,
+      };
     });
   };
 
@@ -120,10 +121,12 @@ class App extends Component {
   };
 
   updateSideLength = sideLength => {
-    this.setState({
-      world: this.randomWorld(sideLength, this.state.randomness),
-      sideLength,
-      days: 0,
+    this.setState(({ randomness }) => {
+      return {
+        world: this.randomWorld(sideLength, randomness),
+        sideLength,
+        days: 0,
+      };
     });
   };
 
