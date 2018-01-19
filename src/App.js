@@ -145,9 +145,14 @@ class App extends Component {
         <h1>Game of Life</h1>
         <table>
           <tbody>
-            {world.map((row, i) => {
-              const rowKey = row.join('');
-              return <Row row={row} key={i + rowKey} rowKey={rowKey} />;
+            {world.map((row, rowIndex) => {
+              return (
+                <tr row={row} key={rowIndex}>
+                  {row.map((cell, cellIndex) => (
+                    <Cell cell={cell} key={cellIndex} />
+                  ))}
+                </tr>
+              );
             })}
           </tbody>
         </table>
@@ -207,14 +212,6 @@ class App extends Component {
     );
   }
 }
-
-const Row = ({ row, rowKey }) => {
-  return (
-    <tr>
-      {row.map((cell, i) => <Cell cell={cell} key={rowKey + cell + i} />)}
-    </tr>
-  );
-};
 
 const Cell = ({ cell }) => {
   const color = binary => (binary === 1 ? '#029874' : '#fff');
