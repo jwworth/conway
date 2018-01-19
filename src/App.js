@@ -130,6 +130,10 @@ class App extends Component {
     });
   };
 
+  updateWorld = world => {
+    this.setState({ world });
+  };
+
   render() {
     const {
       world,
@@ -148,8 +152,15 @@ class App extends Component {
             {world.map((row, rowIndex) => {
               return (
                 <tr row={row} key={rowIndex}>
-                  {row.map((cell, cellIndex) => (
-                    <Cell cell={cell} key={cellIndex} />
+                  {row.map((cellValue, cellIndex) => (
+                    <Cell
+                      cellValue={cellValue}
+                      cellIndex={cellIndex}
+                      rowIndex={rowIndex}
+                      key={cellIndex}
+                      world={world}
+                      updateWorld={this.updateWorld}
+                    />
                   ))}
                 </tr>
               );
@@ -217,17 +228,23 @@ class App extends Component {
   }
 }
 
-const Cell = ({ cell }) => {
-  const color = binary => (binary === 1 ? '#029874' : '#fff');
+const Cell = ({ cellValue, world, updateWorld, cellIndex, rowIndex }) => {
+  const color = cellValue => (cellValue === 1 ? '#029874' : '#fff');
+
+  const toggleValue = cellValue => {
+    world[rowIndex][cellIndex] = cellValue === 1 ? 0 : 1;
+    updateWorld(world);
+  };
 
   return (
     <td
       style={{
-        background: color(cell),
+        background: color(cellValue),
         width: '15px',
         height: '15px',
         border: '1px solid lightgray',
       }}
+      onClick={() => toggleValue(cellValue)}
     />
   );
 };
