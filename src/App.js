@@ -153,7 +153,7 @@ class App extends Component {
         </table>
         <p><strong>Days:</strong> {days}</p>
         <p>
-          <label htmlFor={'randomnessSlider'}>
+          <label htmlFor="randomnessSlider">
             <strong>Chance of life:</strong> {randomness}
           </label>
           <input
@@ -166,7 +166,7 @@ class App extends Component {
             step="0.1"
             onChange={e => this.updateRandomness(e.target.value)}
           />
-          <label htmlFor={'speedSlider'}>
+          <label htmlFor="speedSlider">
             <strong>Speed:</strong> {speed}ms
           </label>
           <input
@@ -179,7 +179,7 @@ class App extends Component {
             step="10"
             onChange={e => this.updateSpeed(e.target.value)}
           />
-          <label htmlFor={'dimensionsSlider'}>
+          <label htmlFor="dimensionsSlider">
             <strong>Side length:</strong> {sideLength}
           </label>
           <input
