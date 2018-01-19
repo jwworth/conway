@@ -154,6 +154,7 @@ class App extends Component {
                 <tr row={row} key={rowIndex}>
                   {row.map((cellValue, cellIndex) => (
                     <Cell
+                      gameInPlay={gameInPlay}
                       cellValue={cellValue}
                       cellIndex={cellIndex}
                       rowIndex={rowIndex}
@@ -228,7 +229,14 @@ class App extends Component {
   }
 }
 
-const Cell = ({ cellValue, world, updateWorld, cellIndex, rowIndex }) => {
+const Cell = ({
+  cellIndex,
+  cellValue,
+  gameInPlay,
+  rowIndex,
+  updateWorld,
+  world,
+}) => {
   const color = cellValue => (cellValue === 1 ? '#029874' : '#fff');
 
   const toggleValue = cellValue => {
@@ -244,7 +252,11 @@ const Cell = ({ cellValue, world, updateWorld, cellIndex, rowIndex }) => {
         height: '15px',
         border: '1px solid lightgray',
       }}
-      onClick={() => toggleValue(cellValue)}
+      onClick={() => {
+        if (!gameInPlay) {
+          toggleValue(cellValue);
+        }
+      }}
     />
   );
 };
