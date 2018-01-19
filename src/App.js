@@ -207,7 +207,11 @@ class App extends Component {
         <button onClick={() => this.resetWorld()}>
           Reset World
         </button>
-        <Footer />
+        <div style={{ paddingTop: '20px' }}>
+          <a href="http://github.com/jwworth/conway" style={{ color: '#000' }}>
+            Source code
+          </a>
+        </div>
       </div>
     );
   }
@@ -225,16 +229,6 @@ const Cell = ({ cell }) => {
         border: '1px solid lightgray',
       }}
     />
-  );
-};
-
-const Footer = () => {
-  return (
-    <div style={{ paddingTop: '20px' }}>
-      <a href="http://github.com/jwworth/conway" style={{ color: '#000' }}>
-        Source code
-      </a>
-    </div>
   );
 };
 
