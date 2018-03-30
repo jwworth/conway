@@ -214,13 +214,13 @@ class App extends Component {
             onChange={e => this.updateSideLength(e.target.value)}
           />
         </p>
-        <button disabled={timer} onClick={() => this.start()}>
+        <button disabled={timer} onClick={this.start}>
           Start
         </button>
-        <button disabled={!timer} onClick={() => this.stop()}>
+        <button disabled={!timer} onClick={this.stop}>
           Stop
         </button>
-        <button onClick={() => this.resetWorld()}>
+        <button onClick={this.resetWorld}>
           Reset World
         </button>
         <div style={{ paddingTop: '20px' }}>
