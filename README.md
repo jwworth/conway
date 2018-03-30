@@ -6,6 +6,20 @@ React.js.
 
 https://conway-react.herokuapp.com/
 
+### Setup
+
+```
+$ git clone https://github.com/jwworth/conway.git
+$ cd conway
+$ yarn
+```
+
+### Testing
+
+```
+$ yarn test
+```
+
 ### License
 
 This project is released under the [MIT License](http://www.opensource.org/licenses/MIT).
