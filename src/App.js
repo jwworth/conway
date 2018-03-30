@@ -1,7 +1,11 @@
-import React, { Component } from 'react';
-import { chunk } from 'lodash';
 import './normalize.css';
 import './App.css';
+
+import React, { Component } from 'react';
+
+import { chunk } from 'lodash';
+
+import Cell from './components/Cell';
 
 class App extends Component {
   constructor(props) {
@@ -228,37 +232,5 @@ class App extends Component {
     );
   }
 }
-
-const Cell = ({
-  cellIndex,
-  cellValue,
-  gameInPlay,
-  rowIndex,
-  updateWorld,
-  world,
-}) => {
-  const color = cellValue => (cellValue === 1 ? '#029874' : '#fff');
-
-  const toggleValue = cellValue => {
-    world[rowIndex][cellIndex] = cellValue === 1 ? 0 : 1;
-    updateWorld(world);
-  };
-
-  return (
-    <td
-      style={{
-        background: color(cellValue),
-        width: '15px',
-        height: '15px',
-        border: '1px solid lightgray',
-      }}
-      onClick={() => {
-        if (!gameInPlay) {
-          toggleValue(cellValue);
-        }
-      }}
-    />
-  );
-};
 
 export default App;
