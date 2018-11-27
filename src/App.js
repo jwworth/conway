@@ -36,13 +36,13 @@ class App extends Component {
   start = () => {
     const timer = setInterval(this.advanceState, this.state.speed);
     this.setTimer(timer);
-    this.setState({ gameInPlay: true });
+    this.setGameInPlay(true);
   };
 
   stop = () => {
     clearInterval(this.state.timer);
     this.setTimer(null);
-    this.setState({ gameInPlay: false });
+    this.setGameInPlay(false);
   };
 
   resetWorld = () => {
