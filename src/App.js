@@ -25,6 +25,14 @@ class App extends Component {
     };
   }
 
+  setDays = days => this.setState({ days });
+  setGameInPlay = gameInPlay => this.setState({ gameInPlay });
+  setRandomness = randomness => this.setState({ randomness });
+  setSideLength = sideLength => this.setState({ sideLength });
+  setSpeed = speed => this.setState({ speed });
+  setTimer = timer => this.setState({ timer });
+  setWorld = world => this.setState({ world });
+
   start = () => {
     const timer = setInterval(this.advanceState, this.state.speed);
     this.setState({ timer, gameInPlay: true });
