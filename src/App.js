@@ -54,7 +54,7 @@ class App extends Component {
   };
 
   advanceState = () => {
-    const world = this.state.world.map((row, rowIndex) =>
+    const newWorld = this.state.world.map((row, rowIndex) =>
       row.map((cell, cellIndex) => {
         const score = this.neighborScore(rowIndex, cellIndex);
         let status;
@@ -67,11 +67,11 @@ class App extends Component {
       })
     );
 
-    if (JSON.stringify(world) === JSON.stringify(this.state.world)) {
+    if (JSON.stringify(newWorld) === JSON.stringify(this.state.world)) {
       this.stop();
     } else {
       this.setDays(this.state.days + 1);
-      this.setWorld(world);
+      this.setWorld(newWorld);
     }
   };
 
@@ -111,13 +111,13 @@ class App extends Component {
     return score;
   };
 
-  randomWorld = (sideLength, randomness) => {
-    let world = [];
-    for (let i = 0; i < sideLength ** 2; i++) {
-      const sentience = Math.random() < randomness ? 1 : 0;
-      world.push(sentience);
+  randomWorld = (newSideLength, newRandomness) => {
+    let newWorld = [];
+    for (let i = 0; i < newSideLength ** 2; i++) {
+      const sentience = Math.random() < newRandomness ? 1 : 0;
+      newWorld.push(sentience);
     }
-    return chunk(world, sideLength);
+    return chunk(newWorld, newSideLength);
   };
 
   updateRandomness = newRandomness => {
