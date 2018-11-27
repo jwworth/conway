@@ -136,12 +136,12 @@ class App extends Component {
     this.setSpeed(newSpeed);
   };
 
-  updateSideLength = sideLength => {
+  updateSideLength = newSideLength => {
     this.setDays(0);
+    this.setSideLength(newSideLength);
     this.setState(({ randomness }) => {
       return {
-        world: this.randomWorld(sideLength, randomness),
-        sideLength,
+        world: this.randomWorld(newSideLength, randomness),
       };
     });
   };
