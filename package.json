@@ -4,8 +4,8 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react": "16.7.0-alpha.2 - next",
+    "react-dom": "16.7.0-alpha.2 - next",
     "react-scripts": "1.0.17"
   },
   "scripts": {
