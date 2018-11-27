@@ -48,9 +48,9 @@ class App extends Component {
   resetWorld = () => {
     this.stop();
     this.setDays(0);
-    this.setState(({ sideLength, randomness }) => {
-      return { world: this.randomWorld(sideLength, randomness) };
-    });
+    this.setWorld(
+      this.randomWorld(this.state.sideLength, this.state.randomness)
+    );
   };
 
   advanceState = () => {
@@ -71,7 +71,7 @@ class App extends Component {
       this.stop();
     } else {
       this.setDays(this.state.days + 1);
-      this.setState({ world });
+      this.setWorld(world);
     }
   };
 
@@ -120,14 +120,10 @@ class App extends Component {
     return chunk(world, sideLength);
   };
 
-  updateRandomness = randomness => {
+  updateRandomness = newRandomness => {
     this.setDays(0);
-    this.setState(({ sideLength }) => {
-      return {
-        world: this.randomWorld(sideLength, randomness),
-        randomness,
-      };
-    });
+    this.setRandomness(newRandomness);
+    this.setWorld(this.randomWorld(this.state.sideLength, newRandomness));
   };
 
   updateSpeed = newSpeed => {
@@ -139,11 +135,7 @@ class App extends Component {
   updateSideLength = newSideLength => {
     this.setDays(0);
     this.setSideLength(newSideLength);
-    this.setState(({ randomness }) => {
-      return {
-        world: this.randomWorld(newSideLength, randomness),
-      };
-    });
+    this.setWorld(this.randomWorld(newSideLength, this.state.randomness));
   };
 
   render() {
