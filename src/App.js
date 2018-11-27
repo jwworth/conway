@@ -35,12 +35,14 @@ class App extends Component {
 
   start = () => {
     const timer = setInterval(this.advanceState, this.state.speed);
-    this.setState({ timer, gameInPlay: true });
+    this.setTimer(timer);
+    this.setState({ gameInPlay: true });
   };
 
   stop = () => {
     clearInterval(this.state.timer);
-    this.setState({ timer: null, gameInPlay: false });
+    this.setTimer(null);
+    this.setState({ gameInPlay: false });
   };
 
   resetWorld = () => {
@@ -129,7 +131,8 @@ class App extends Component {
 
   updateSpeed = speed => {
     clearInterval(this.state.timer);
-    this.setState({ timer: null, speed });
+    this.setTimer(null);
+    this.setState({ speed });
   };
 
   updateSideLength = sideLength => {
@@ -180,7 +183,9 @@ class App extends Component {
             })}
           </tbody>
         </table>
-        <p><strong>Days:</strong> {days}</p>
+        <p>
+          <strong>Days:</strong> {days}
+        </p>
         <p>
           <label htmlFor="randomnessSlider">
             <strong>Chance of life:</strong> {randomness}
@@ -196,7 +201,8 @@ class App extends Component {
             onChange={e => this.updateRandomness(e.target.value)}
           />
           <label htmlFor="speedSlider">
-            <strong>Speed:</strong> {speed}ms
+            <strong>Speed:</strong> {speed}
+            ms
           </label>
           <input
             disabled={gameInPlay}
@@ -228,9 +234,7 @@ class App extends Component {
         <button disabled={!timer} onClick={this.stop}>
           Stop
         </button>
-        <button onClick={this.resetWorld}>
-          Reset World
-        </button>
+        <button onClick={this.resetWorld}>Reset World</button>
         <div style={{ paddingTop: '20px' }}>
           <a href="http://github.com/jwworth/conway" style={{ color: '#000' }}>
             Source code
