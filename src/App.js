@@ -102,7 +102,7 @@ class App extends Component {
 
   randomWorld = (sideLength, randomness) => {
     let world = [];
-    for (var i = 0; i < sideLength ** 2; i++) {
+    for (let i = 0; i < sideLength ** 2; i++) {
       const sentience = Math.random() < randomness ? 1 : 0;
       world.push(sentience);
     }
