@@ -145,10 +145,6 @@ class App extends Component {
     });
   };
 
-  updateWorld = world => {
-    this.setState({ world });
-  };
-
   render() {
     const {
       world,
@@ -175,7 +171,7 @@ class App extends Component {
                       rowIndex={rowIndex}
                       key={cellIndex}
                       world={world}
-                      updateWorld={this.updateWorld}
+                      updateWorld={this.setWorld}
                     />
                   ))}
                 </tr>
