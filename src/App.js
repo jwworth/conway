@@ -7,21 +7,21 @@ import { chunk } from 'lodash';
 
 import Cell from './components/Cell';
 
+const RANDOMNESS = 0.2;
+const SIDELENGTH = 30;
+
 class App extends Component {
   constructor(props) {
     super(props);
 
-    const randomness = 0.2;
-    const sideLength = 30;
-
     this.state = {
-      randomness,
-      sideLength,
+      randomness: RANDOMNESS,
+      sideLength: SIDELENGTH,
       timer: null,
       gameInPlay: false,
       days: 0,
       speed: 30,
-      world: this.randomWorld(sideLength, randomness),
+      world: this.randomWorld(SIDELENGTH, RANDOMNESS),
     };
   }
 
