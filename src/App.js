@@ -129,10 +129,10 @@ class App extends Component {
     });
   };
 
-  updateSpeed = speed => {
+  updateSpeed = newSpeed => {
     clearInterval(this.state.timer);
     this.setTimer(null);
-    this.setState({ speed });
+    this.setSpeed(newSpeed);
   };
 
   updateSideLength = sideLength => {
