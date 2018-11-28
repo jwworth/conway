@@ -3,10 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Cell = ({ cellIndex, cellValue, rowIndex, updateWorld, world }) => {
-  const color = cellValue => (cellValue === 1 ? '#029874' : '#fff');
+  const color = value => (value === 1 ? '#029874' : '#fff');
 
-  const toggleValue = cellValue => {
-    world[rowIndex][cellIndex] = cellValue === 1 ? 0 : 1;
+  const toggleValue = value => {
+    world[rowIndex][cellIndex] = value === 1 ? 0 : 1;
     updateWorld(world);
   };
 
