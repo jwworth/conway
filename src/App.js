@@ -25,7 +25,7 @@ const App = () => {
   const [sideLength, setSideLength] = useState(SIDELENGTH);
   const [world, setWorld] = useState(randomWorld(SIDELENGTH, RANDOMNESS));
 
-  const resetWorld = () => {
+  const resetState = () => {
     setDays(0);
     setWorld(randomWorld(sideLength, randomness));
   };
@@ -151,7 +151,7 @@ const App = () => {
       <button type="button" onClick={advanceState}>
         Advance World
       </button>
-      <button type="reset" onClick={resetWorld}>
+      <button type="reset" onClick={resetState}>
         Reset World
       </button>
       <div style={{ paddingTop: '20px' }}>
