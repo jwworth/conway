@@ -40,7 +40,7 @@ Cell.propTypes = {
   gameInPlay: PropTypes.bool.isRequired,
   rowIndex: PropTypes.number.isRequired,
   updateWorld: PropTypes.func.isRequired,
-  world: PropTypes.array.isRequired,
+  world: PropTypes.arrayOf(PropTypes.array).isRequired,
 };
 
 export default Cell;
