@@ -148,8 +148,12 @@ const App = () => {
           onChange={e => updateSideLength(e.target.value)}
         />
       </p>
-      <button onClick={advanceState}>Advance World</button>
-      <button onClick={resetWorld}>Reset World</button>
+      <button type="button" onClick={advanceState}>
+        Advance World
+      </button>
+      <button type="reset" onClick={resetWorld}>
+        Reset World
+      </button>
       <div style={{ paddingTop: '20px' }}>
         <a href="http://github.com/jwworth/conway" style={{ color: '#000' }}>
           Source code
