@@ -1,7 +1,7 @@
 import './normalize.css';
 import './App.css';
 
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import { chunk } from 'lodash';
 
@@ -10,53 +10,30 @@ import Cell from './components/Cell';
 const RANDOMNESS = 0.2;
 const SIDELENGTH = 30;
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      randomness: RANDOMNESS,
-      sideLength: SIDELENGTH,
-      timer: null,
-      gameInPlay: false,
-      days: 0,
-      speed: 30,
-      world: this.randomWorld(SIDELENGTH, RANDOMNESS),
-    };
+const randomWorld = (newSideLength, newRandomness) => {
+  const newWorld = [];
+  for (let i = 0; i < newSideLength ** 2; i++) {
+    const sentience = Math.random() < newRandomness ? 1 : 0;
+    newWorld.push(sentience);
   }
+  return chunk(newWorld, newSideLength);
+};
 
-  setDays = days => this.setState({ days });
-  setGameInPlay = gameInPlay => this.setState({ gameInPlay });
-  setRandomness = randomness => this.setState({ randomness });
-  setSideLength = sideLength => this.setState({ sideLength });
-  setSpeed = speed => this.setState({ speed });
-  setTimer = timer => this.setState({ timer });
-  setWorld = world => this.setState({ world });
+const App = () => {
+  const [days, setDays] = useState(0);
+  const [randomness, setRandomness] = useState(RANDOMNESS);
+  const [sideLength, setSideLength] = useState(SIDELENGTH);
+  const [world, setWorld] = useState(randomWorld(SIDELENGTH, RANDOMNESS));
 
-  start = () => {
-    const timer = setInterval(this.advanceState, this.state.speed);
-    this.setTimer(timer);
-    this.setGameInPlay(true);
+  const resetWorld = () => {
+    setDays(0);
+    setWorld(randomWorld(sideLength, randomness));
   };
 
-  stop = () => {
-    clearInterval(this.state.timer);
-    this.setTimer(null);
-    this.setGameInPlay(false);
-  };
-
-  resetWorld = () => {
-    this.stop();
-    this.setDays(0);
-    this.setWorld(
-      this.randomWorld(this.state.sideLength, this.state.randomness)
-    );
-  };
-
-  advanceState = () => {
-    const newWorld = this.state.world.map((row, rowIndex) =>
+  const advanceState = () => {
+    const newWorld = world.map((row, rowIndex) =>
       row.map((cell, cellIndex) => {
-        const score = this.neighborScore(rowIndex, cellIndex);
+        const score = neighborScore(rowIndex, cellIndex);
         let status;
         if (cell === 1 && (score === 2 || score === 3)) {
           status = 1;
@@ -67,15 +44,11 @@ class App extends Component {
       })
     );
 
-    if (JSON.stringify(newWorld) === JSON.stringify(this.state.world)) {
-      this.stop();
-    } else {
-      this.setDays(this.state.days + 1);
-      this.setWorld(newWorld);
-    }
+    setDays(days + 1);
+    setWorld(newWorld);
   };
 
-  neighborScore = (rowIndex, cellIndex) => {
+  const neighborScore = (rowIndex, cellIndex) => {
     const rightNeighbor = [rowIndex, cellIndex + 1];
     const leftNeighbor = [rowIndex, cellIndex - 1];
     const topNeighbor = [rowIndex - 1, cellIndex];
@@ -99,8 +72,8 @@ class App extends Component {
     const score = positions
       .map(position => {
         let count;
-        if (this.state.world[position[0]]) {
-          count = this.state.world[position[0]][position[1]] || 0;
+        if (world[position[0]]) {
+          count = world[position[0]][position[1]] || 0;
         } else {
           count = 0;
         }
@@ -111,127 +84,79 @@ class App extends Component {
     return score;
   };
 
-  randomWorld = (newSideLength, newRandomness) => {
-    let newWorld = [];
-    for (let i = 0; i < newSideLength ** 2; i++) {
-      const sentience = Math.random() < newRandomness ? 1 : 0;
-      newWorld.push(sentience);
-    }
-    return chunk(newWorld, newSideLength);
+  const updateRandomness = newRandomness => {
+    setDays(0);
+    setRandomness(newRandomness);
+    setWorld(randomWorld(sideLength, newRandomness));
   };
 
-  updateRandomness = newRandomness => {
-    this.setDays(0);
-    this.setRandomness(newRandomness);
-    this.setWorld(this.randomWorld(this.state.sideLength, newRandomness));
+  const updateSideLength = newSideLength => {
+    setDays(0);
+    setSideLength(newSideLength);
+    setWorld(randomWorld(newSideLength, randomness));
   };
 
-  updateSpeed = newSpeed => {
-    clearInterval(this.state.timer);
-    this.setTimer(null);
-    this.setSpeed(newSpeed);
-  };
-
-  updateSideLength = newSideLength => {
-    this.setDays(0);
-    this.setSideLength(newSideLength);
-    this.setWorld(this.randomWorld(newSideLength, this.state.randomness));
-  };
-
-  render() {
-    const {
-      world,
-      gameInPlay,
-      days,
-      randomness,
-      timer,
-      speed,
-      sideLength,
-    } = this.state;
-    return (
-      <div style={{ margin: 'auto', width: '450px' }}>
-        <h1>Game of Life</h1>
-        <table>
-          <tbody>
-            {world.map((row, rowIndex) => {
-              return (
-                <tr row={row} key={rowIndex}>
-                  {row.map((cellValue, cellIndex) => (
-                    <Cell
-                      gameInPlay={gameInPlay}
-                      cellValue={cellValue}
-                      cellIndex={cellIndex}
-                      rowIndex={rowIndex}
-                      key={cellIndex}
-                      world={world}
-                      updateWorld={this.setWorld}
-                    />
-                  ))}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        <p>
-          <strong>Days:</strong> {days}
-        </p>
-        <p>
-          <label htmlFor="randomnessSlider">
-            <strong>Chance of life:</strong> {randomness}
-          </label>
-          <input
-            disabled={gameInPlay}
-            type="range"
-            id="randomnessSlider"
-            min="0"
-            max="1"
-            value={randomness}
-            step="0.1"
-            onChange={e => this.updateRandomness(e.target.value)}
-          />
-          <label htmlFor="speedSlider">
-            <strong>Speed:</strong> {speed}
-            ms
-          </label>
-          <input
-            disabled={gameInPlay}
-            type="range"
-            id="speedSlider"
-            min="10"
-            max="3000"
-            value={speed}
-            step="10"
-            onChange={e => this.updateSpeed(e.target.value)}
-          />
-          <label htmlFor="dimensionsSlider">
-            <strong>Side length:</strong> {sideLength}
-          </label>
-          <input
-            disabled={gameInPlay}
-            type="range"
-            id="dimensionsSlider"
-            min="10"
-            max="30"
-            value={sideLength}
-            step="1"
-            onChange={e => this.updateSideLength(e.target.value)}
-          />
-        </p>
-        <button disabled={timer} onClick={this.start}>
-          Start
-        </button>
-        <button disabled={!timer} onClick={this.stop}>
-          Stop
-        </button>
-        <button onClick={this.resetWorld}>Reset World</button>
-        <div style={{ paddingTop: '20px' }}>
-          <a href="http://github.com/jwworth/conway" style={{ color: '#000' }}>
-            Source code
-          </a>
-        </div>
+  return (
+    <div style={{ margin: 'auto', width: '450px' }}>
+      <h1>Game of Life</h1>
+      <table>
+        <tbody>
+          {world.map((row, rowIndex) => {
+            return (
+              <tr row={row} key={rowIndex}>
+                {row.map((cellValue, cellIndex) => (
+                  <Cell
+                    cellValue={cellValue}
+                    cellIndex={cellIndex}
+                    rowIndex={rowIndex}
+                    key={cellIndex}
+                    world={world}
+                    updateWorld={setWorld}
+                  />
+                ))}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <p>
+        <strong>Days:</strong> {days}
+      </p>
+      <p>
+        <label htmlFor="randomnessSlider">
+          <strong>Chance of life:</strong> {randomness}
+        </label>
+        <input
+          type="range"
+          id="randomnessSlider"
+          min="0"
+          max="1"
+          value={randomness}
+          step="0.1"
+          onChange={e => updateRandomness(e.target.value)}
+        />
+        <label htmlFor="dimensionsSlider">
+          <strong>Side length:</strong> {sideLength}
+        </label>
+        <input
+          type="range"
+          id="dimensionsSlider"
+          min="10"
+          max="30"
+          value={sideLength}
+          step="1"
+          onChange={e => updateSideLength(e.target.value)}
+        />
+      </p>
+      <button onClick={advanceState}>Advance World</button>
+      <button onClick={resetWorld}>Reset World</button>
+      <div style={{ paddingTop: '20px' }}>
+        <a href="http://github.com/jwworth/conway" style={{ color: '#000' }}>
+          Source code
+        </a>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default App;
