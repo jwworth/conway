@@ -12,6 +12,7 @@ https://conway-react.herokuapp.com/
 $ git clone https://github.com/jwworth/conway.git
 $ cd conway
 $ yarn
+$ yarn start
 ```
 
 ### Testing
