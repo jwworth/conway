@@ -1,4 +1,3 @@
-import './normalize.css';
 import './App.css';
 
 import React, { Component } from 'react';
