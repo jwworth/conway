@@ -4,9 +4,14 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "@types/jest": "^23.3.10",
+    "@types/node": "^10.12.17",
+    "@types/react": "^16.7.17",
+    "@types/react-dom": "^16.0.11",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.0.17"
+    "react-scripts": "2.1.0",
+    "typescript": "^3.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -14,5 +19,11 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "git push heroku master && heroku open"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
