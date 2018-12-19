@@ -6,23 +6,36 @@ import { chunk } from 'lodash';
 
 import Cell from './components/Cell';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-
-    const randomness = 0.2;
-    const sideLength = 30;
-
-    this.state = {
-      randomness,
-      sideLength,
-      timer: null,
-      gameInPlay: false,
-      days: 0,
-      speed: 30,
-      world: this.randomWorld(sideLength, randomness),
-    };
+const randomWorld = (sideLength: number, randomness: number) => {
+  let world = [];
+  for (let i = 0; i < sideLength ** 2; i++) {
+    const sentience = Math.random() < randomness ? 1 : 0;
+    world.push(sentience);
   }
+  return chunk(world, sideLength);
+};
+
+type AppProps = {};
+type AppState = {
+  sideLength: number;
+  randomness: number;
+  gameInPlay: boolean;
+  timer: NodeJS.Timeout | undefined;
+  world: number[][];
+  days: number;
+  speed: number;
+};
+
+class App extends Component<AppProps, AppState> {
+  state = {
+    randomness: 0.2,
+    sideLength: 30,
+    timer: undefined,
+    gameInPlay: false,
+    days: 0,
+    speed: 30,
+    world: randomWorld(30, 0.2),
+  };
 
   start = () => {
     const timer = setInterval(this.advanceState, this.state.speed);
@@ -31,13 +44,13 @@ class App extends Component {
 
   stop = () => {
     clearInterval(this.state.timer);
-    this.setState({ timer: null, gameInPlay: false });
+    this.setState({ timer: undefined, gameInPlay: false });
   };
 
   resetWorld = () => {
     this.stop();
     this.setState(({ sideLength, randomness }) => {
-      return { world: this.randomWorld(sideLength, randomness), days: 0 };
+      return { world: randomWorld(sideLength, randomness), days: 0 };
     });
   };
 
@@ -63,7 +76,7 @@ class App extends Component {
     }
   };
 
-  neighborScore = (rowIndex, cellIndex) => {
+  neighborScore = (rowIndex: number, cellIndex: number) => {
     const rightNeighbor = [rowIndex, cellIndex + 1];
     const leftNeighbor = [rowIndex, cellIndex - 1];
     const topNeighbor = [rowIndex - 1, cellIndex];
@@ -99,41 +112,32 @@ class App extends Component {
     return score;
   };
 
-  randomWorld = (sideLength, randomness) => {
-    let world = [];
-    for (let i = 0; i < sideLength ** 2; i++) {
-      const sentience = Math.random() < randomness ? 1 : 0;
-      world.push(sentience);
-    }
-    return chunk(world, sideLength);
-  };
-
-  updateRandomness = randomness => {
+  updateRandomness = (randomness: number) => {
     this.setState(({ sideLength }) => {
       return {
-        world: this.randomWorld(sideLength, randomness),
+        world: randomWorld(sideLength, randomness),
         randomness,
         days: 0,
       };
     });
   };
 
-  updateSpeed = speed => {
+  updateSpeed = (speed: number) => {
     clearInterval(this.state.timer);
-    this.setState({ timer: null, speed });
+    this.setState({ timer: undefined, speed });
   };
 
-  updateSideLength = sideLength => {
+  updateSideLength = (sideLength: number) => {
     this.setState(({ randomness }) => {
       return {
-        world: this.randomWorld(sideLength, randomness),
+        world: randomWorld(sideLength, randomness),
         sideLength,
         days: 0,
       };
     });
   };
 
-  updateWorld = world => {
+  updateWorld = (world: number[][]) => {
     this.setState({ world });
   };
 
@@ -154,7 +158,7 @@ class App extends Component {
           <tbody>
             {world.map((row, rowIndex) => {
               return (
-                <tr row={row} key={rowIndex}>
+                <tr key={rowIndex}>
                   {row.map((cellValue, cellIndex) => (
                     <Cell
                       gameInPlay={gameInPlay}
@@ -186,7 +190,7 @@ class App extends Component {
             max="1"
             value={randomness}
             step="0.1"
-            onChange={e => this.updateRandomness(e.target.value)}
+            onChange={e => this.updateRandomness(parseInt(e.target.value))}
           />
           <label htmlFor="speedSlider">
             <strong>Speed:</strong> {speed}
@@ -200,7 +204,7 @@ class App extends Component {
             max="3000"
             value={speed}
             step="10"
-            onChange={e => this.updateSpeed(e.target.value)}
+            onChange={e => this.updateSpeed(parseInt(e.target.value))}
           />
           <label htmlFor="dimensionsSlider">
             <strong>Side length:</strong> {sideLength}
@@ -213,10 +217,10 @@ class App extends Component {
             max="30"
             value={sideLength}
             step="1"
-            onChange={e => this.updateSideLength(e.target.value)}
+            onChange={e => this.updateSideLength(parseInt(e.target.value))}
           />
         </p>
-        <button disabled={timer} onClick={this.start}>
+        <button disabled={!!timer} onClick={this.start}>
           Start
         </button>
         <button disabled={!timer} onClick={this.stop}>
