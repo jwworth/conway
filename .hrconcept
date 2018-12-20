@@ -2,4 +2,4 @@ name: conway-react
 url: https://conway-react.herokuapp.com/
 banner: true
 description: |
-  This is Conway's Game of Life in React.js.
+  Conway's Game of Life in React.js and TypeScript.
