@@ -190,7 +190,7 @@ class App extends Component<AppProps, AppState> {
             max="1"
             value={randomness}
             step="0.1"
-            onChange={e => this.updateRandomness(parseInt(e.target.value))}
+            onChange={e => this.updateRandomness(Number(e.target.value))}
           />
           <label htmlFor="speedSlider">
             <strong>Speed:</strong> {speed}
@@ -204,7 +204,7 @@ class App extends Component<AppProps, AppState> {
             max="3000"
             value={speed}
             step="10"
-            onChange={e => this.updateSpeed(parseInt(e.target.value))}
+            onChange={e => this.updateSpeed(Number(e.target.value))}
           />
           <label htmlFor="dimensionsSlider">
             <strong>Side length:</strong> {sideLength}
@@ -217,7 +217,7 @@ class App extends Component<AppProps, AppState> {
             max="30"
             value={sideLength}
             step="1"
-            onChange={e => this.updateSideLength(parseInt(e.target.value))}
+            onChange={e => this.updateSideLength(Number(e.target.value))}
           />
         </p>
         <button disabled={!!timer} onClick={this.start}>
