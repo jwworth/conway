@@ -15,8 +15,7 @@ const randomWorld = (sideLength: number, randomness: number): number[][] => {
   return chunk(world, sideLength);
 };
 
-type AppProps = {};
-type AppState = {
+type State = {
   sideLength: number;
   randomness: number;
   gameInPlay: boolean;
@@ -26,7 +25,7 @@ type AppState = {
   speed: number;
 };
 
-class App extends Component<AppProps, AppState> {
+class App extends Component<{}, State> {
   state = {
     randomness: 0.2,
     sideLength: 30,
