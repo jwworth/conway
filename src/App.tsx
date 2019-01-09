@@ -6,7 +6,7 @@ import { chunk } from 'lodash';
 
 import Cell from './components/Cell';
 
-const randomWorld = (sideLength: number, randomness: number) => {
+const randomWorld = (sideLength: number, randomness: number): number[][] => {
   let world = [];
   for (let i = 0; i < sideLength ** 2; i++) {
     const sentience = Number(Math.random() < randomness);
@@ -76,7 +76,7 @@ class App extends Component<AppProps, AppState> {
     }
   };
 
-  neighborScore = (rowIndex: number, cellIndex: number) => {
+  neighborScore = (rowIndex: number, cellIndex: number): number => {
     const rightNeighbor = [rowIndex, cellIndex + 1];
     const leftNeighbor = [rowIndex, cellIndex - 1];
     const topNeighbor = [rowIndex - 1, cellIndex];
@@ -112,7 +112,7 @@ class App extends Component<AppProps, AppState> {
     return score;
   };
 
-  updateRandomness = (randomness: number) => {
+  updateRandomness = (randomness: number): void => {
     this.setState(({ sideLength }) => {
       return {
         world: randomWorld(sideLength, randomness),
@@ -122,12 +122,12 @@ class App extends Component<AppProps, AppState> {
     });
   };
 
-  updateSpeed = (speed: number) => {
+  updateSpeed = (speed: number): void => {
     clearInterval(this.state.timer);
     this.setState({ timer: undefined, speed });
   };
 
-  updateSideLength = (sideLength: number) => {
+  updateSideLength = (sideLength: number): void => {
     this.setState(({ randomness }) => {
       return {
         world: randomWorld(sideLength, randomness),
@@ -137,7 +137,7 @@ class App extends Component<AppProps, AppState> {
     });
   };
 
-  updateWorld = (world: number[][]) => {
+  updateWorld = (world: number[][]): void => {
     this.setState({ world });
   };
 
