@@ -9,7 +9,7 @@ import Cell from './components/Cell';
 const randomWorld = (sideLength: number, randomness: number) => {
   let world = [];
   for (let i = 0; i < sideLength ** 2; i++) {
-    const sentience = Math.random() < randomness ? 1 : 0;
+    const sentience = Number(Math.random() < randomness);
     world.push(sentience);
   }
   return chunk(world, sideLength);
