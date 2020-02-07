@@ -3,7 +3,7 @@
 This is my implementation of [Conway's Game of Life][conway] in React.js and
 TypeScript.
 
-https://conway-react.herokuapp.com/
+https://conway.now.sh/
 
 ### Setup
 
