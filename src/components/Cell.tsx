@@ -1,5 +1,14 @@
 import React from 'react';
 
+interface CellProps {
+  cellIndex: number;
+  cellValue: number;
+  gameInPlay: boolean;
+  rowIndex: number;
+  updateWorld: (world: number[][]) => void;
+  world: number[][];
+}
+
 const Cell = ({
   cellIndex,
   cellValue,
@@ -7,14 +16,7 @@ const Cell = ({
   rowIndex,
   updateWorld,
   world,
-}: {
-  cellIndex: number;
-  cellValue: number;
-  gameInPlay: boolean;
-  rowIndex: number;
-  updateWorld: (world: number[][]) => void;
-  world: number[][];
-}) => {
+}: CellProps) => {
   const color = (value: number) => (value === 1 ? '#029874' : '#fff');
 
   const toggleValue = (value: number) => {
