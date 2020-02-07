@@ -28,10 +28,10 @@ class App extends Component<{}, AppState> {
   state = {
     days: 0,
     randomness: 0.2,
-    sideLength: 30,
-    speed: 30,
+    sideLength: 40,
+    speed: 300,
     timer: undefined,
-    world: randomWorld(30, 0.2),
+    world: randomWorld(40, 0.2),
   };
 
   start = () => {
@@ -142,7 +142,7 @@ class App extends Component<{}, AppState> {
     const { days, randomness, sideLength, speed, timer, world } = this.state;
     const gameInPlay = Boolean(timer);
     return (
-      <div style={{ margin: 'auto', width: '450px' }}>
+      <div style={{ margin: 'auto', width: '600px' }}>
         <h1>Game of Life</h1>
         <table>
           <tbody>
@@ -204,7 +204,7 @@ class App extends Component<{}, AppState> {
             type="range"
             id="dimensionsSlider"
             min="10"
-            max="30"
+            max="40"
             value={sideLength}
             step="1"
             onChange={e => this.updateSideLength(Number(e.target.value))}
