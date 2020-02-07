@@ -10,7 +10,7 @@
     "@types/react": "^16.7.17",
     "@types/react-dom": "^16.0.11",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.2.1",
     "react-scripts": "2.1.0",
     "typescript": "^3.7.5"
   },
