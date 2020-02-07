@@ -15,9 +15,9 @@ const Cell = ({
   updateWorld: (world: number[][]) => void;
   world: number[][];
 }) => {
-  const color = (cellValue: number) => (cellValue === 1 ? '#029874' : '#fff');
+  const color = (value: number) => (value === 1 ? '#029874' : '#fff');
 
-  const toggleValue = (cellValue: number) => {
+  const toggleValue = (value: number) => {
     world[rowIndex][cellIndex] = cellValue === 1 ? 0 : 1;
     updateWorld(world);
   };
