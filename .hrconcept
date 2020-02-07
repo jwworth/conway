@@ -1,5 +1,5 @@
 name: conway-react
-url: https://conway-react.herokuapp.com/
+url: https://conway.now.sh/
 banner: true
 description: |
   Conway's Game of Life in React.js and TypeScript.
