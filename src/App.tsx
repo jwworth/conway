@@ -15,24 +15,24 @@ const randomWorld = (sideLength: number, randomness: number): number[][] => {
   return chunk(world, sideLength);
 };
 
-type State = {
-  sideLength: number;
-  randomness: number;
-  gameInPlay: boolean;
-  timer: NodeJS.Timeout | undefined;
-  world: number[][];
+interface AppState {
   days: number;
+  gameInPlay: boolean;
+  randomness: number;
+  sideLength: number;
   speed: number;
-};
+  timer: undefined | NodeJS.Timeout;
+  world: number[][];
+}
 
-class App extends Component<{}, State> {
+class App extends Component<{}, AppState> {
   state = {
+    days: 0,
+    gameInPlay: false,
     randomness: 0.2,
     sideLength: 30,
-    timer: undefined,
-    gameInPlay: false,
-    days: 0,
     speed: 30,
+    timer: undefined,
     world: randomWorld(30, 0.2),
   };
 
@@ -142,13 +142,13 @@ class App extends Component<{}, State> {
 
   render() {
     const {
-      world,
-      gameInPlay,
       days,
+      gameInPlay,
       randomness,
-      timer,
-      speed,
       sideLength,
+      speed,
+      timer,
+      world,
     } = this.state;
     return (
       <div style={{ margin: 'auto', width: '450px' }}>
