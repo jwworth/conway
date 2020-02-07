@@ -17,7 +17,6 @@ const randomWorld = (sideLength: number, randomness: number): number[][] => {
 
 interface AppState {
   days: number;
-  gameInPlay: boolean;
   randomness: number;
   sideLength: number;
   speed: number;
@@ -28,7 +27,6 @@ interface AppState {
 class App extends Component<{}, AppState> {
   state = {
     days: 0,
-    gameInPlay: false,
     randomness: 0.2,
     sideLength: 30,
     speed: 30,
@@ -38,12 +36,12 @@ class App extends Component<{}, AppState> {
 
   start = () => {
     const timer = setInterval(this.advanceState, this.state.speed);
-    this.setState({ timer, gameInPlay: true });
+    this.setState({ timer });
   };
 
   stop = () => {
     clearInterval(this.state.timer);
-    this.setState({ timer: undefined, gameInPlay: false });
+    this.setState({ timer: undefined });
   };
 
   resetWorld = () => {
@@ -141,15 +139,8 @@ class App extends Component<{}, AppState> {
   };
 
   render() {
-    const {
-      days,
-      gameInPlay,
-      randomness,
-      sideLength,
-      speed,
-      timer,
-      world,
-    } = this.state;
+    const { days, randomness, sideLength, speed, timer, world } = this.state;
+    const gameInPlay = Boolean(timer);
     return (
       <div style={{ margin: 'auto', width: '450px' }}>
         <h1>Game of Life</h1>
@@ -219,10 +210,10 @@ class App extends Component<{}, AppState> {
             onChange={e => this.updateSideLength(Number(e.target.value))}
           />
         </p>
-        <button disabled={!!timer} onClick={this.start}>
+        <button disabled={gameInPlay} onClick={this.start}>
           Start
         </button>
-        <button disabled={!timer} onClick={this.stop}>
+        <button disabled={!gameInPlay} onClick={this.stop}>
           Stop
         </button>
         <button onClick={this.resetWorld}>Reset World</button>
