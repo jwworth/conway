@@ -217,7 +217,7 @@ class App extends Component<{}, AppState> {
           Stop
         </button>
         <button onClick={this.resetWorld}>Reset World</button>
-        <div style={{ paddingTop: '20px' }}>
+        <div style={{ padding: '30px 0' }}>
           <a href="http://github.com/jwworth/conway" style={{ color: '#000' }}>
             Source code
           </a>
