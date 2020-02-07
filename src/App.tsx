@@ -96,16 +96,15 @@ class App extends Component<{}, AppState> {
 
     const score = positions
       .map(position => {
-        let count;
-        if (this.state.world[position[0]]) {
-          count = this.state.world[position[0]][position[1]] || 0;
-        } else {
-          count = 0;
-        }
+        let count = 0;
+        const rowInWorld = this.state.world[position[0]];
 
+        if (rowInWorld) {
+          count = rowInWorld[position[1]] || 0;
+        }
         return count;
       })
-      .reduce((a, b) => a + b, 0);
+      .reduce((acc, current) => acc + current, 0);
     return score;
   };
 
