@@ -7,7 +7,7 @@ import { chunk } from 'lodash';
 import Cell from './components/Cell';
 
 const randomWorld = (sideLength: number, randomness: number): number[][] => {
-  let world = [];
+  const world = [];
   for (let i = 0; i < sideLength ** 2; i++) {
     const sentience = Number(Math.random() < randomness);
     world.push(sentience);
@@ -70,7 +70,7 @@ class App extends Component<{}, State> {
     if (JSON.stringify(world) === JSON.stringify(this.state.world)) {
       this.stop();
     } else {
-      let days = this.state.days;
+      const days = this.state.days;
       this.setState({ world, days: days + 1 });
     }
   };
