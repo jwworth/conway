@@ -1,9 +1,12 @@
 # Conway
 
+![gif](https://i.imgur.com/gsfpbsx.gif)
+
 This is my implementation of [Conway's Game of Life][conway] in React.js and
 TypeScript.
 
 https://conway.now.sh/
+
 
 ### Setup
 
