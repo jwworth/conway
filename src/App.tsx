@@ -2,20 +2,11 @@ import './App.css';
 
 import React, { Component } from 'react';
 
-import { chunk } from 'lodash';
-
+import { randomColor, randomWorld } from './app_helper';
 import Cell from './components/Cell';
 
-const randomWorld = (sideLength: number, randomness: number): number[][] => {
-  const world = [];
-  for (let i = 0; i < sideLength ** 2; i++) {
-    const sentience = Number(Math.random() < randomness);
-    world.push(sentience);
-  }
-  return chunk(world, sideLength);
-};
-
 interface AppState {
+  colorOfLife: string;
   days: number;
   randomness: number;
   sideLength: number;
@@ -26,6 +17,7 @@ interface AppState {
 
 class App extends Component<{}, AppState> {
   state = {
+    colorOfLife: randomColor(),
     days: 0,
     randomness: 0.2,
     sideLength: 40,
@@ -47,7 +39,11 @@ class App extends Component<{}, AppState> {
   resetWorld = () => {
     this.stop();
     this.setState(({ sideLength, randomness }) => {
-      return { world: randomWorld(sideLength, randomness), days: 0 };
+      return {
+        colorOfLife: randomColor(),
+        world: randomWorld(sideLength, randomness),
+        days: 0,
+      };
     });
   };
 
@@ -138,7 +134,15 @@ class App extends Component<{}, AppState> {
   };
 
   render() {
-    const { days, randomness, sideLength, speed, timer, world } = this.state;
+    const {
+      colorOfLife,
+      days,
+      randomness,
+      sideLength,
+      speed,
+      timer,
+      world,
+    } = this.state;
     const gameInPlay = Boolean(timer);
     return (
       <div style={{ margin: 'auto', width: '600px' }}>
@@ -151,8 +155,9 @@ class App extends Component<{}, AppState> {
                   {row.map((cellValue, cellIndex) => (
                     <Cell
                       gameInPlay={gameInPlay}
-                      cellValue={cellValue}
                       cellIndex={cellIndex}
+                      cellValue={cellValue}
+                      colorOfLife={colorOfLife}
                       rowIndex={rowIndex}
                       key={cellIndex}
                       world={world}
