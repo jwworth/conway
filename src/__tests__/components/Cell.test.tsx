@@ -9,6 +9,7 @@ it('renders without crashing', () => {
     <Cell
       cellIndex={0}
       cellValue={0}
+      colorOfLife={"#000"}
       gameInPlay={true}
       rowIndex={0}
       updateWorld={() => null}
