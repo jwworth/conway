@@ -5,18 +5,15 @@
 This is my implementation of [Conway's Game of Life][conway] in React.js and
 TypeScript.
 
-https://conway.now.sh/
-
+[Production site](https://conway.vercel.app/)
 
 ### Setup
-
-Install [yarn][yarn]. Then:
 
 ```
 $ git clone https://github.com/jwworth/conway.git
 $ cd conway
-$ yarn
-$ yarn start
+$ npm install
+$ npm start
 ```
 
 Visit http://localhost:3000/ to view your development server.
@@ -24,7 +21,7 @@ Visit http://localhost:3000/ to view your development server.
 ### Testing
 
 ```
-$ yarn test
+$ npm run test
 ```
 
 ### License
@@ -32,5 +29,4 @@ $ yarn test
 This project is released under the [MIT License][mit].
 
 [conway]: https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
-[yarn]: https://yarnpkg.com/
 [mit]: http://www.opensource.org/licenses/MIT
