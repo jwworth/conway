@@ -136,10 +136,22 @@ class App extends Component<{}, AppState> {
   render() {
     const {colorOfLife, days, randomness, sideLength, speed, timer, world} =
       this.state;
+
     const gameInPlay = Boolean(timer);
+
     return (
       <div style={{margin: 'auto', width: '600px'}}>
-        <h1>Game of Life</h1>
+        <h1>
+          <span style={{marginRight: '0.75rem'}}>
+            Conway&#39;s Game of Life
+          </span>
+          <span
+            style={{color: 'transparent', textShadow: `0 0 0 ${colorOfLife}`}}
+          >
+            🦠
+          </span>
+        </h1>
+
         <table>
           <tbody>
             {world.map((row, rowIndex) => {
