@@ -226,7 +226,7 @@ class App extends Component<{}, AppState> {
         </button>
         <button onClick={this.resetWorld}>Reset World</button>
         <div style={{padding: '30px 0'}}>
-          Created by <a href="https://twitter.com/jwworth">@jwworth</a> |{' '}
+          Created by <a href="https://github.com/jwworth">@jwworth</a> |{' '}
           <a href="http://github.com/jwworth/conway" style={{color: '#000'}}>
             {' '}
             Source code{' '}
