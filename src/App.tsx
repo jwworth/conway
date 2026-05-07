@@ -1,8 +1,8 @@
 import './App.css';
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
-import { randomColor, randomWorld } from './app_helper';
+import {randomColor, randomWorld} from './app_helper';
 import Cell from './components/Cell';
 
 interface AppState {
@@ -28,17 +28,17 @@ class App extends Component<{}, AppState> {
 
   start = () => {
     const timer = setInterval(this.advanceState, this.state.speed);
-    this.setState({ timer });
+    this.setState({timer});
   };
 
   stop = () => {
     clearInterval(this.state.timer);
-    this.setState({ timer: undefined });
+    this.setState({timer: undefined});
   };
 
   resetWorld = () => {
     this.stop();
-    this.setState(({ sideLength, randomness }) => {
+    this.setState(({sideLength, randomness}) => {
       return {
         colorOfLife: randomColor(),
         world: randomWorld(sideLength, randomness),
@@ -58,14 +58,14 @@ class App extends Component<{}, AppState> {
           status = 1;
         }
         return status || 0;
-      })
+      }),
     );
 
     if (JSON.stringify(world) === JSON.stringify(this.state.world)) {
       this.stop();
     } else {
       const days = this.state.days;
-      this.setState({ world, days: days + 1 });
+      this.setState({world, days: days + 1});
     }
   };
 
@@ -91,7 +91,7 @@ class App extends Component<{}, AppState> {
     ];
 
     const score = positions
-      .map(position => {
+      .map((position) => {
         let count = 0;
         const rowInWorld = this.state.world[position[0]];
 
@@ -105,7 +105,7 @@ class App extends Component<{}, AppState> {
   };
 
   updateRandomness = (randomness: number): void => {
-    this.setState(({ sideLength }) => {
+    this.setState(({sideLength}) => {
       return {
         world: randomWorld(sideLength, randomness),
         randomness,
@@ -116,11 +116,11 @@ class App extends Component<{}, AppState> {
 
   updateSpeed = (speed: number): void => {
     clearInterval(this.state.timer);
-    this.setState({ timer: undefined, speed });
+    this.setState({timer: undefined, speed});
   };
 
   updateSideLength = (sideLength: number): void => {
-    this.setState(({ randomness }) => {
+    this.setState(({randomness}) => {
       return {
         world: randomWorld(sideLength, randomness),
         sideLength,
@@ -130,22 +130,15 @@ class App extends Component<{}, AppState> {
   };
 
   updateWorld = (world: number[][]): void => {
-    this.setState({ world });
+    this.setState({world});
   };
 
   render() {
-    const {
-      colorOfLife,
-      days,
-      randomness,
-      sideLength,
-      speed,
-      timer,
-      world,
-    } = this.state;
+    const {colorOfLife, days, randomness, sideLength, speed, timer, world} =
+      this.state;
     const gameInPlay = Boolean(timer);
     return (
-      <div style={{ margin: 'auto', width: '600px' }}>
+      <div style={{margin: 'auto', width: '600px'}}>
         <h1>Game of Life</h1>
         <table>
           <tbody>
@@ -184,7 +177,7 @@ class App extends Component<{}, AppState> {
             max="1"
             value={randomness}
             step="0.1"
-            onChange={e => this.updateRandomness(Number(e.target.value))}
+            onChange={(e) => this.updateRandomness(Number(e.target.value))}
           />
           <label htmlFor="speedSlider">
             <strong>Speed:</strong> {speed}
@@ -198,7 +191,7 @@ class App extends Component<{}, AppState> {
             max="3000"
             value={speed}
             step="10"
-            onChange={e => this.updateSpeed(Number(e.target.value))}
+            onChange={(e) => this.updateSpeed(Number(e.target.value))}
           />
           <label htmlFor="dimensionsSlider">
             <strong>Side length:</strong> {sideLength}
@@ -211,7 +204,7 @@ class App extends Component<{}, AppState> {
             max="40"
             value={sideLength}
             step="1"
-            onChange={e => this.updateSideLength(Number(e.target.value))}
+            onChange={(e) => this.updateSideLength(Number(e.target.value))}
           />
         </p>
         <button disabled={gameInPlay} onClick={this.start}>
@@ -221,9 +214,9 @@ class App extends Component<{}, AppState> {
           Stop
         </button>
         <button onClick={this.resetWorld}>Reset World</button>
-        <div style={{ padding: '30px 0' }}>
+        <div style={{padding: '30px 0'}}>
           Created by <a href="https://twitter.com/jwworth">@jwworth</a> |{' '}
-          <a href="http://github.com/jwworth/conway" style={{ color: '#000' }}>
+          <a href="http://github.com/jwworth/conway" style={{color: '#000'}}>
             {' '}
             Source code{' '}
           </a>

@@ -1,4 +1,4 @@
-import { chunk } from 'lodash';
+import {chunk} from 'lodash';
 
 const PURPLES = [
   '#e6e6fa',
@@ -23,7 +23,7 @@ export const randomColor = (): string =>
 
 export const randomWorld = (
   sideLength: number,
-  randomness: number
+  randomness: number,
 ): number[][] => {
   const world = [];
   for (let i = 0; i < sideLength ** 2; i++) {
