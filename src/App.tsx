@@ -175,11 +175,11 @@ class App extends Component<{}, AppState> {
           </tbody>
         </table>
         <p>
-          <strong>Days:</strong> {days}
+          <strong>Days passed:</strong> {days}
         </p>
         <p>
           <label htmlFor="randomnessSlider">
-            <strong>Chance of life:</strong> {randomness}
+            <strong>Chance of life:</strong> {randomness * 100}%
           </label>
           <input
             disabled={gameInPlay}
@@ -192,8 +192,7 @@ class App extends Component<{}, AppState> {
             onChange={(e) => this.updateRandomness(Number(e.target.value))}
           />
           <label htmlFor="speedSlider">
-            <strong>Speed:</strong> {speed}
-            ms
+            <strong>Speed:</strong> {speed} ms
           </label>
           <input
             disabled={gameInPlay}
@@ -206,7 +205,7 @@ class App extends Component<{}, AppState> {
             onChange={(e) => this.updateSpeed(Number(e.target.value))}
           />
           <label htmlFor="dimensionsSlider">
-            <strong>Side length:</strong> {sideLength}
+            <strong>Side length:</strong> {sideLength} cells
           </label>
           <input
             disabled={gameInPlay}
