@@ -1,25 +1,22 @@
 import {chunk} from 'lodash';
 
-const PURPLES = [
-  '#e6e6fa',
-  '#d8bfd8',
-  '#dda0dd',
-  '#ee82ee',
-  '#da70d6',
-  '#ff00ff',
-  '#ff00ff',
-  '#ba55d3',
-  '#9370db',
-  '#8a2be2',
-  '#9400d3',
-  '#9932cc',
-  '#8b008b',
-  '#800080',
-  '#4b0082',
+const COLORS = [
+  '#c4b5fd', // soft purple
+  '#a78bfa', // lavender
+  '#93c5fd', // blue
+  '#7dd3fc', // sky blue
+  '#67e8f9', // cyan
+  '#6ee7b7', // mint green
+  '#86efac', // light green
+  '#fde68a', // soft yellow
+  '#fdba74', // peach
+  '#fca5a5', // soft red
+  '#f9a8d4', // pink
+  '#f0abfc', // magenta
 ];
 
 export const randomColor = (): string =>
-  PURPLES[Math.floor(Math.random() * PURPLES.length)];
+  COLORS[Math.floor(Math.random() * COLORS.length)];
 
 export const randomWorld = (
   sideLength: number,
