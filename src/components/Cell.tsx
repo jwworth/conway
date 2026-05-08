@@ -33,6 +33,7 @@ const Cell = ({
         width: '15px',
         height: '15px',
         border: '1px solid lightgray',
+        cursor: 'pointer',
       }}
       onClick={() => {
         if (!gameInPlay) {

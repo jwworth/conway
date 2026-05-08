@@ -174,6 +174,9 @@ class App extends Component<{}, AppState> {
             })}
           </tbody>
         </table>
+        <div style={{marginTop: '0.5rem', fontSize: 'small'}}>
+          When stopped, click any cell to change life state.
+        </div>
         <p>
           <strong>Days passed:</strong> {days}
         </p>
