@@ -246,50 +246,15 @@ class App extends Component<{}, AppState> {
           </div>
 
           <div style={{marginTop: 20, display: 'flex', gap: 7}}>
-            <button
-              disabled={gameInPlay}
-              onClick={this.start}
-              style={{
-                padding: '6px 12px',
-                background: '#6366f1',
-                color: 'white',
-                border: 'none',
-                borderRadius: 6,
-                cursor: gameInPlay ? 'not-allowed' : 'pointer',
-                opacity: gameInPlay ? 0.5 : 1,
-              }}
-            >
+            <button disabled={gameInPlay} onClick={this.start}>
               Start
             </button>
 
-            <button
-              disabled={!gameInPlay}
-              onClick={this.stop}
-              style={{
-                padding: '6px 12px',
-                background: '#f87171',
-                color: 'white',
-                border: 'none',
-                borderRadius: 6,
-                cursor: !gameInPlay ? 'not-allowed' : 'pointer',
-                opacity: !gameInPlay ? 0.5 : 1,
-              }}
-            >
+            <button disabled={!gameInPlay} onClick={this.stop}>
               Stop
             </button>
 
-            <button
-              onClick={this.resetWorld}
-              style={{
-                padding: '2px 12px',
-                background: '#e5e7eb',
-                border: 'none',
-                borderRadius: 6,
-                cursor: 'pointer',
-              }}
-            >
-              Reset
-            </button>
+            <button onClick={this.resetWorld}>Reset</button>
           </div>
         </div>
 
