@@ -177,57 +177,122 @@ class App extends Component<{}, AppState> {
         <div style={{marginTop: '0.5rem', fontSize: 'small'}}>
           When stopped, click any cell to change life state.
         </div>
-        <p>
-          <strong>Days passed:</strong> {days}
-        </p>
-        <p>
-          <label htmlFor="randomnessSlider">
-            <strong>Chance of life:</strong> {randomness * 100}%
-          </label>
-          <input
-            disabled={gameInPlay}
-            type="range"
-            id="randomnessSlider"
-            min="0"
-            max="1"
-            value={randomness}
-            step="0.1"
-            onChange={(e) => this.updateRandomness(Number(e.target.value))}
-          />
-          <label htmlFor="speedSlider">
-            <strong>Speed:</strong> {speed} ms
-          </label>
-          <input
-            disabled={gameInPlay}
-            type="range"
-            id="speedSlider"
-            min="10"
-            max="3000"
-            value={speed}
-            step="10"
-            onChange={(e) => this.updateSpeed(Number(e.target.value))}
-          />
-          <label htmlFor="dimensionsSlider">
-            <strong>Side length:</strong> {sideLength} cells
-          </label>
-          <input
-            disabled={gameInPlay}
-            type="range"
-            id="dimensionsSlider"
-            min="10"
-            max="40"
-            value={sideLength}
-            step="1"
-            onChange={(e) => this.updateSideLength(Number(e.target.value))}
-          />
-        </p>
-        <button disabled={gameInPlay} onClick={this.start}>
-          Start
-        </button>
-        <button disabled={!gameInPlay} onClick={this.stop}>
-          Stop
-        </button>
-        <button onClick={this.resetWorld}>Reset World</button>
+
+        <div style={{fontFamily: 'sans-serif', maxWidth: 400}}>
+          <p style={{marginBottom: 12}}>
+            <strong>Days passed:</strong> <span>{days}</span>
+          </p>
+
+          <div style={{display: 'flex', flexDirection: 'column', gap: 16}}>
+            <div>
+              <label
+                htmlFor="randomnessSlider"
+                style={{display: 'block', marginBottom: 4}}
+              >
+                <strong>Chance of life:</strong> {randomness * 100}%
+              </label>
+              <input
+                style={{width: '100%'}}
+                disabled={gameInPlay}
+                type="range"
+                id="randomnessSlider"
+                min="0"
+                max="1"
+                value={randomness}
+                step="0.1"
+                onChange={(e) => this.updateRandomness(Number(e.target.value))}
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="speedSlider"
+                style={{display: 'block', marginBottom: 4}}
+              >
+                <strong>Speed:</strong> {speed} ms
+              </label>
+              <input
+                style={{width: '100%'}}
+                disabled={gameInPlay}
+                type="range"
+                id="speedSlider"
+                min="10"
+                max="3000"
+                value={speed}
+                step="10"
+                onChange={(e) => this.updateSpeed(Number(e.target.value))}
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="dimensionsSlider"
+                style={{display: 'block', marginBottom: 4}}
+              >
+                <strong>Side length:</strong> {sideLength} cells
+              </label>
+              <input
+                style={{width: '100%'}}
+                disabled={gameInPlay}
+                type="range"
+                id="dimensionsSlider"
+                min="10"
+                max="40"
+                value={sideLength}
+                step="1"
+                onChange={(e) => this.updateSideLength(Number(e.target.value))}
+              />
+            </div>
+          </div>
+
+          <div style={{marginTop: 20, display: 'flex', gap: 7}}>
+            <button
+              disabled={gameInPlay}
+              onClick={this.start}
+              style={{
+                padding: '6px 12px',
+                background: '#6366f1',
+                color: 'white',
+                border: 'none',
+                borderRadius: 6,
+                cursor: gameInPlay ? 'not-allowed' : 'pointer',
+                opacity: gameInPlay ? 0.5 : 1,
+              }}
+            >
+              Start
+            </button>
+
+            <button
+              disabled={!gameInPlay}
+              onClick={this.stop}
+              style={{
+                padding: '6px 12px',
+                background: '#f87171',
+                color: 'white',
+                border: 'none',
+                borderRadius: 6,
+                cursor: !gameInPlay ? 'not-allowed' : 'pointer',
+                opacity: !gameInPlay ? 0.5 : 1,
+              }}
+            >
+              Stop
+            </button>
+
+            <button
+              onClick={this.resetWorld}
+              style={{
+                padding: '2px 12px',
+                background: '#e5e7eb',
+                border: 'none',
+                borderRadius: 6,
+                cursor: 'pointer',
+              }}
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+
         <div style={{padding: '30px 0'}}>
           Created by <a href="https://github.com/jwworth">@jwworth</a> |{' '}
           <a href="http://github.com/jwworth/conway" style={{color: '#000'}}>
