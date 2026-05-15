@@ -175,7 +175,7 @@ class App extends Component<{}, AppState> {
           </tbody>
         </table>
         <div style={{marginTop: '0.5rem', fontSize: 'small'}}>
-          When stopped, click any cell to change life state.
+          Filled cells are alive. When stopped, click any cell to change life state.
         </div>
 
         <div style={{fontFamily: 'sans-serif', maxWidth: 400}}>
