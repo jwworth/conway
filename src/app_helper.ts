@@ -1,22 +1,31 @@
 import {chunk} from 'lodash';
 
 const COLORS = [
-  '#c4b5fd', // soft purple
-  '#a78bfa', // lavender
-  '#93c5fd', // blue
-  '#7dd3fc', // sky blue
-  '#67e8f9', // cyan
-  '#6ee7b7', // mint green
-  '#86efac', // light green
-  '#fde68a', // soft yellow
-  '#fdba74', // peach
-  '#fca5a5', // soft red
-  '#f9a8d4', // pink
-  '#f0abfc', // magenta
-];
+  '#7c3aed', // purple
+  '#8b5cf6', // lavender
+  '#2563eb', // blue
+  '#0284c7', // sky blue
+  '#0891b2', // cyan
+  '#059669', // mint green
+  '#16a34a', // green
+  '#ca8a04', // yellow/gold
+  '#ea580c', // peach/orange
+  '#dc2626', // soft red
+  '#db2777', // pink
+  '#c026d3', // magenta
+] as const;
 
-export const randomColor = (): string =>
-  COLORS[Math.floor(Math.random() * COLORS.length)];
+export type Color = (typeof COLORS)[number];
+
+export const randomColor = ({
+  exclude,
+}: {
+  exclude?: (typeof COLORS)[number];
+} = {}): Color => {
+  const colors = exclude ? COLORS.filter((color) => color !== exclude) : COLORS;
+
+  return colors[Math.floor(Math.random() * colors.length)];
+};
 
 export const randomWorld = (
   sideLength: number,

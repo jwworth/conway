@@ -1,12 +1,11 @@
-import './App.css';
-
+import styles from './App.module.css';
 import React, {Component} from 'react';
 
-import {randomColor, randomWorld} from './app_helper';
+import {randomColor, randomWorld, Color} from './app_helper';
 import Cell from './components/Cell';
 
 interface AppState {
-  colorOfLife: string;
+  colorOfLife: Color;
   days: number;
   randomness: number;
   sideLength: number;
@@ -40,7 +39,6 @@ class App extends Component<{}, AppState> {
     this.stop();
     this.setState(({sideLength, randomness}) => {
       return {
-        colorOfLife: randomColor(),
         world: randomWorld(sideLength, randomness),
         days: 0,
       };
@@ -133,6 +131,12 @@ class App extends Component<{}, AppState> {
     this.setState({world});
   };
 
+  handleChangeColorClick = () => {
+    this.setState(({colorOfLife: currentColor}) => ({
+      colorOfLife: randomColor({exclude: currentColor}),
+    }));
+  };
+
   render() {
     const {colorOfLife, days, randomness, sideLength, speed, timer, world} =
       this.state;
@@ -140,13 +144,12 @@ class App extends Component<{}, AppState> {
     const gameInPlay = Boolean(timer);
 
     return (
-      <div style={{margin: 'auto', width: '600px'}}>
-        <h1>
-          <span style={{marginRight: '0.75rem'}}>
-            Conway&#39;s Game of Life
-          </span>
+      <div className={styles.root}>
+        <h1 className={styles.title}>
+          <span className={styles.titleText}>Conway&#39;s Game of Life</span>
           <span
-            style={{color: 'transparent', textShadow: `0 0 0 ${colorOfLife}`}}
+            className={styles.emoji}
+            style={{'--color-of-life': colorOfLife} as React.CSSProperties}
           >
             🦠
           </span>
@@ -174,25 +177,28 @@ class App extends Component<{}, AppState> {
             })}
           </tbody>
         </table>
-        <div style={{marginTop: '0.5rem', fontSize: 'small'}}>
-          Filled cells are alive. When stopped, click any cell to change life state.
+        <div className={styles.tableFooter}>
+          <div className={styles.hint}>
+            Filled cells are alive. When stopped, click any cell to change life
+            state.
+          </div>
+          <div>
+            <button onClick={this.handleChangeColorClick}>Change color</button>
+          </div>
         </div>
 
-        <div style={{fontFamily: 'sans-serif', maxWidth: 400}}>
-          <p style={{marginBottom: 12}}>
+        <div className={styles.controls}>
+          <p className={styles.daysPassed}>
             <strong>Days passed:</strong> <span>{days}</span>
           </p>
 
-          <div style={{display: 'flex', flexDirection: 'column', gap: 16}}>
+          <div className={styles.sliders}>
             <div>
-              <label
-                htmlFor="randomnessSlider"
-                style={{display: 'block', marginBottom: 4}}
-              >
+              <label htmlFor="randomnessSlider" className={styles.label}>
                 <strong>Chance of life:</strong> {randomness * 100}%
               </label>
               <input
-                style={{width: '100%'}}
+                className={styles.rangeInput}
                 disabled={gameInPlay}
                 type="range"
                 id="randomnessSlider"
@@ -205,14 +211,11 @@ class App extends Component<{}, AppState> {
             </div>
 
             <div>
-              <label
-                htmlFor="speedSlider"
-                style={{display: 'block', marginBottom: 4}}
-              >
+              <label htmlFor="speedSlider" className={styles.label}>
                 <strong>Speed:</strong> {speed} ms
               </label>
               <input
-                style={{width: '100%'}}
+                className={styles.rangeInput}
                 disabled={gameInPlay}
                 type="range"
                 id="speedSlider"
@@ -225,14 +228,11 @@ class App extends Component<{}, AppState> {
             </div>
 
             <div>
-              <label
-                htmlFor="dimensionsSlider"
-                style={{display: 'block', marginBottom: 4}}
-              >
+              <label htmlFor="dimensionsSlider" className={styles.label}>
                 <strong>Side length:</strong> {sideLength} cells
               </label>
               <input
-                style={{width: '100%'}}
+                className={styles.rangeInput}
                 disabled={gameInPlay}
                 type="range"
                 id="dimensionsSlider"
@@ -245,7 +245,7 @@ class App extends Component<{}, AppState> {
             </div>
           </div>
 
-          <div style={{marginTop: 20, display: 'flex', gap: 7}}>
+          <div className={styles.controlButtons}>
             <button disabled={gameInPlay} onClick={this.start}>
               Start
             </button>
@@ -258,9 +258,12 @@ class App extends Component<{}, AppState> {
           </div>
         </div>
 
-        <div style={{padding: '30px 0'}}>
+        <div className={styles.footer}>
           Created by <a href="https://github.com/jwworth">@jwworth</a> |{' '}
-          <a href="http://github.com/jwworth/conway" style={{color: '#000'}}>
+          <a
+            href="http://github.com/jwworth/conway"
+            className={styles.sourceLink}
+          >
             {' '}
             Source code{' '}
           </a>

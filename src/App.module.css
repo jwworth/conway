@@ -1,0 +1,72 @@
+.root {
+  margin: auto;
+  width: 600px;
+  font-family: sans-serif;
+}
+
+.title {
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+}
+
+.titleText {
+  margin-right: 0.75rem;
+}
+
+.emoji {
+  color: transparent;
+  text-shadow: 0 0 0 var(--color-of-life);
+}
+
+.tableFooter {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.hint {
+  margin-top: 0.5rem;
+  font-size: small;
+}
+
+.controls {
+  font-family: sans-serif;
+  max-width: 400px;
+}
+
+.daysPassed {
+  margin-bottom: 12px;
+}
+
+.sliders {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.rangeInput {
+  width: 100%;
+}
+
+.controlButtons {
+  margin-top: 20px;
+  display: flex;
+  gap: 7px;
+
+  button {
+    margin-right: 1rem;
+  }
+}
+
+.footer {
+  padding: 30px 0;
+}
+
+.sourceLink {
+  color: #000;
+}
