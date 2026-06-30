@@ -38,6 +38,18 @@
   margin-bottom: 12px;
 }
 
+.flair {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.2em 0.65em;
+  border-radius: 9999px;
+  background-color: var(--color-of-life);
+  color: #fff;
+  font-size: 0.85em;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
 .sliders {
   display: flex;
   flex-direction: column;

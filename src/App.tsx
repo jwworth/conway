@@ -63,7 +63,8 @@ class App extends Component<{}, AppState> {
     );
 
     if (JSON.stringify(world) === JSON.stringify(this.state.world)) {
-      this.setState({flair: 'Dead World'});
+      const hasLife = world.some((row) => row.some((cell) => cell === 1));
+      this.setState({flair: hasLife ? 'Still life' : 'Extinction'});
       this.stop();
     } else {
       const days = this.state.days;
@@ -110,6 +111,7 @@ class App extends Component<{}, AppState> {
     this.setState(({sideLength}) => {
       return {
         world: randomWorld(sideLength, randomness),
+        flair: undefined,
         randomness,
         days: 0,
       };
@@ -126,6 +128,7 @@ class App extends Component<{}, AppState> {
       return {
         world: randomWorld(sideLength, randomness),
         sideLength,
+        flair: undefined,
         days: 0,
       };
     });
@@ -193,7 +196,15 @@ class App extends Component<{}, AppState> {
 
         <div className={styles.controls}>
           <p className={styles.daysPassed}>
-            <strong>Days passed:</strong> <span>{days}</span> {this.state.flair}
+            <strong>Days passed:</strong> <span>{days}</span>
+            {this.state.flair && (
+              <span
+                className={styles.flair}
+                style={{'--color-of-life': colorOfLife} as React.CSSProperties}
+              >
+                {this.state.flair}
+              </span>
+            )}
           </p>
 
           <div className={styles.sliders}>
