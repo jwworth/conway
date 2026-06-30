@@ -7,15 +7,17 @@ import Cell from './components/Cell';
 interface AppState {
   colorOfLife: Color;
   days: number;
+  flair?: string;
   randomness: number;
   sideLength: number;
   speed: number;
-  timer: undefined | NodeJS.Timeout;
+  timer?: NodeJS.Timeout;
   world: number[][];
 }
 
 class App extends Component<{}, AppState> {
   state = {
+    flair: undefined,
     colorOfLife: randomColor(),
     days: 0,
     randomness: 0.2,
@@ -40,6 +42,7 @@ class App extends Component<{}, AppState> {
     this.setState(({sideLength, randomness}) => {
       return {
         world: randomWorld(sideLength, randomness),
+        flair: undefined,
         days: 0,
       };
     });
@@ -60,6 +63,7 @@ class App extends Component<{}, AppState> {
     );
 
     if (JSON.stringify(world) === JSON.stringify(this.state.world)) {
+      this.setState({flair: 'Dead World'});
       this.stop();
     } else {
       const days = this.state.days;
@@ -189,7 +193,7 @@ class App extends Component<{}, AppState> {
 
         <div className={styles.controls}>
           <p className={styles.daysPassed}>
-            <strong>Days passed:</strong> <span>{days}</span>
+            <strong>Days passed:</strong> <span>{days}</span> {this.state.flair}
           </p>
 
           <div className={styles.sliders}>
